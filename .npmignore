@@ -1,4 +1,5 @@
 .idea
 tsd-debug.*
 npm-debug.*
-test/**/*
+/node_modules
+/src

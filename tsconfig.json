@@ -2,15 +2,13 @@
   "compilerOptions": {
     "declaration": true,
     "module": "commonjs",
-    "target": "es5",
-    "outDir": "package/"
+    "target": "es6",
+    "outDir": "build"
   },
   "filesGlob": [
     "src/**/*.ts"
   ],
   "exclude": [
-    "test/**/*",
-    "node_modules",
-    "package"
+    "node_modules"
   ]
 }

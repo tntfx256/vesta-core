@@ -3,19 +3,18 @@
   "version": "0.0.1",
   "description": "Vesta platform libraries",
   "license": "Apache-2.0",
+  "main": "build/index.js",
+  "typings": "index.d.ts",
+  "repository": "https://github.com/VestaRayanAfzar/vesta-lib.git",
+  "scripts": {
+    "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
+    "prepare": "gulp prepare",
+    "publish": "gulp publish"
+  },
   "author": "hbtb <bishehsary@gmail.com>",
   "contributors": [
-    {
-      "name": "javadkh2",
-      "email": "khalilian.javad@gmail.com"
-    }
+    "javadkh2 <khalilian.javad@gmail.com>"
   ],
-  "private": true,
-  "scripts": {
-    "test": "node node_modules/jasmine-node/bin/jasmine-node package/test --autotest --watch package/ --color --verbose",
-    "dev": "tsc -w -p ."
-  },
-  "repository": "https://github.com/VestaRayanAfzar/vesta-lib.git",
   "bugs": {
     "url": "https://github.com/VestaRayanAfzar/vesta-lib/issues",
     "email": "bishehsary@gmail.com"
@@ -24,8 +23,10 @@
   "devDependencies": {
     "@types/es6-promise": "^0.0.32",
     "@types/jasmine": "^2.5.47",
+    "fs-extra": "^3.0.1",
+    "gulp": "^3.9.1",
     "jasmine-core": "^2.4.1",
     "jasmine-node": "^1.14.5",
-    "typescript": "2.0"
+    "typescript": "^2.3.2"
   }
 }
