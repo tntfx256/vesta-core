@@ -1,0 +1,31 @@
+{
+  "name": "@vesta/core",
+  "version": "0.0.1",
+  "description": "Vesta platform libraries",
+  "license": "Apache-2.0",
+  "author": "hbtb <bishehsary@gmail.com>",
+  "contributors": [
+    {
+      "name": "javadkh2",
+      "email": "khalilian.javad@gmail.com"
+    }
+  ],
+  "private": true,
+  "scripts": {
+    "test": "node node_modules/jasmine-node/bin/jasmine-node package/test --autotest --watch package/ --color --verbose",
+    "dev": "tsc -w -p ."
+  },
+  "repository": "https://github.com/VestaRayanAfzar/vesta-lib.git",
+  "bugs": {
+    "url": "https://github.com/VestaRayanAfzar/vesta-lib/issues",
+    "email": "bishehsary@gmail.com"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/es6-promise": "^0.0.32",
+    "@types/jasmine": "^2.5.47",
+    "jasmine-core": "^2.4.1",
+    "jasmine-node": "^1.14.5",
+    "typescript": "2.0"
+  }
+}

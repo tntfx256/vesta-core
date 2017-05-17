@@ -1,0 +1,4 @@
+.idea
+tsd-debug.*
+npm-debug.*
+test/**/*
