@@ -1,6 +1,6 @@
 import {Field} from "./Field";
 import {Schema} from "./Schema";
-import {Database, IQueryOption} from "./Database";
+import {Database, IQueryOption, Transaction} from "./Database";
 import {Vql} from "./Vql";
 import {Condition} from "./Condition";
 import {Validator, IValidationErrors} from "./Validator";
@@ -23,6 +23,8 @@ export interface IModel {
 export abstract class Model {
     private database: Database;
     private schema: Schema;
+    public static schema: Schema;
+    public static database: Database;
 
     constructor(schema: Schema, database: Database) {
         this.schema = schema;
@@ -75,73 +77,82 @@ export abstract class Model {
         return this.getValues<T>();
     }
 
-    public insert<T>(values?: T): Promise<IUpsertResult<T>> {
+    public insert<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>> {
         if (values) {
             this.setValues(values);
         }
         // removing id for insertion
         // todo: set previous id on failure?
         delete this['id'];
-        return (<Database>this['database']).insertOne(this.schema.name, this.getValues());
+        return (this.database).insert(this.schema.name, this.getValues(), transaction);
     }
 
-    public update<T>(values?: T): Promise<IUpsertResult<T>> {
+    public update<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>> {
         let modelValues = <T>this.getValues();
         values = values || modelValues;
         values[this.schema.pk] = modelValues[this.schema.pk];
-        return (<Database>this['database']).updateOne(this.schema.name, values);
+        return (this.database).update(this.schema.name, values, transaction);
     }
 
-    public delete(): Promise<IDeleteResult> {
-        return (<Database>this['database']).deleteOne(this.schema.name, this[this.schema.pk]);
+    public remove(transaction?: Transaction): Promise<IDeleteResult> {
+        return (this.database).remove(this.schema.name, this[this.schema.pk], transaction);
     }
 
-    public increase<T>(field: string, value: number = 1): Promise<IUpsertResult<T>> {
-        return (<Database>this['database']).increase(this.schema.name, this[this.schema.pk], field, value);
+    public increase<T>(field: string, value: number = 1, transaction?: Transaction): Promise<IUpsertResult<T>> {
+        return (this.database).increase(this.schema.name, this[this.schema.pk], field, value, transaction);
     }
 
     public static getDatabase(): Database {
-        return <Database>this['database'];
+        return this.database;
     }
 
-    public static findById<T>(id: number|string, option?: IQueryOption): Promise<IQueryResult<T>> {
-        return (<Database>this['database']).findById<T>(this['schema'].name, id, option);
-    }
-
-    public static findByModelValues<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>> {
-        return (<Database>this['database']).findByModelValues<T>(this['schema'].name, modelValues, option);
-    }
-
-    public static findByQuery<T>(query: Vql): Promise<IQueryResult<T>> {
-        return (<Database>this['database']).findByQuery<T>(query);
-    }
-
-    public static updateAll<T>(newValues: T, condition: Condition): Promise<IUpsertResult<T>> {
-        return (<Database>this['database']).updateAll<T>(this['schema'].name, newValues, condition);
-    }
-
-    public static insertAll<T>(values: Array<T>): Promise<IUpsertResult<T>> {
-        return (<Database>this['database']).insertAll<T>(this['schema'].name, values);
-    }
-
-    public static deleteAll(condition: Condition): Promise<IDeleteResult> {
-        return (<Database>this['database']).deleteAll(this['schema'].name, condition);
-    }
-
-    public static query<T>(query: string): Promise<T> {
-        return (<Database>this['database']).query(query);
-    }
-
-    public static count<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>;
-
-    public static count<T>(query: Vql): Promise<IQueryResult<T>>;
-
-    public static count<T>(arg1?: T|Vql, option?: IQueryOption): Promise < IQueryResult <number>> {
+    public static find<T>(id: number | string, option?: IQueryOption): Promise<IQueryResult<T>>
+    public static find<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>
+    public static find<T>(query: Vql): Promise<IQueryResult<T>>
+    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption): Promise<IQueryResult<T>> {
         if (arg1 instanceof Vql) {
-            return this['database'].count(arg1);
+            return (this.database).find<T>(<Vql>arg1);
+        } else {
+            return (this.database).find<T>(this.schema.name, <any>arg1, arg2);
+    }
+
+    }
+
+    public static update<T>(value: T, transaction?: Transaction): Promise<IUpsertResult<T>>
+    public static update<T>(newValues: T, condition: Condition, transaction?: Transaction): Promise<IUpsertResult<T>>
+    public static update<T>(value: T, arg2: Condition | Transaction, transaction?: Transaction): Promise<IUpsertResult<T>> {
+        if (arg2 instanceof Condition) {
+            return this.database.update(this.schema.name, value, <Condition>arg2, transaction)
+        } else {
+            return this.database.update(this.schema.name, value, <Transaction>arg2)
+    }
+    }
+
+    public static insert<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>>
+    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>>
+    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>> {
+        return (this.database).insert(this.schema.name, <any>values, transaction);
+    }
+
+    public static remove(id: number | string, transaction?: Transaction): Promise<IDeleteResult>
+    public static remove(condition: Condition, transaction?: Transaction): Promise<IDeleteResult>
+    public static remove(arg1: Condition | number | string, transaction?: Transaction): Promise<IDeleteResult> {
+        return (this.database).remove(this.schema.name, <any>arg1, transaction);
+
+    }
+
+    public static query<T>(query: string, transaction?: Transaction): Promise<T> {
+        return (this.database).query(query, null, transaction);
+    }
+
+    public static count<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>
+    public static count<T>(query: Vql): Promise<IQueryResult<T>>
+    public static count<T>(arg1?: T | Vql, option?: IQueryOption): Promise<IQueryResult<T>> {
+        if (arg1 instanceof Vql) {
+            return this.database.count(arg1);
         }
         else {
-            return this['database'].count(this['schema'].name, arg1, option);
+            return this.database.count(this.schema.name, arg1, option);
         }
     }
 

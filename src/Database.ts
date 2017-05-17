@@ -42,9 +42,9 @@ export interface IQueryOption {
     limit?: number;
     offset?: number;
     page?: number;
-    fields?: Array<string|Vql>;
+    fields?: Array<string | Vql>;
     orderBy?: Array<IOrderBy>;
-    relations?: Array<{name: string, fields: Array<string>}|string>;
+    relations?: Array<{ name: string, fields: Array<string> } | string>;
 }
 
 export interface IModelCollection {
@@ -55,48 +55,85 @@ export interface ISchemaList {
     [name: string]: Schema
 }
 
-/**
- * interface for Database Class
- */
+
 export interface IDatabase {
     new (config: IDatabaseConfig, models: IModelCollection): Database;
 }
 
+export interface IKeyValueDatabase {
+    new (config: IDatabaseConfig): KeyValueDatabase;
+}
 /**
- * Abstract Database class for drivers
+ * Database interface for key-value databases.
  */
-export abstract class Database {
+export interface KeyValueDatabase {
 
-    public abstract connect(): Promise<Database>;
+    connect(): Promise<KeyValueDatabase>;
 
-    public abstract findById<T>(model: string, id: number|string, option?: IQueryOption): Promise<IQueryResult<T>>;
+    close(connection: any): Promise<boolean>;
 
-    public abstract findByModelValues<T>(model: string, modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>;
+    find<T>(key: string): Promise<IQueryResult<T>>;
 
-    public abstract findByQuery<T>(query: Vql): Promise<IQueryResult<T>>;
+    insert<T>(key: string, value: T): Promise<IUpsertResult<T>>;
 
-    public abstract insertOne<T>(model: string, value: T): Promise<IUpsertResult<T>>;
+    update<T>(key: string, value: T): Promise<IUpsertResult<T>>;
 
-    public abstract insertAll<T>(model: string, values: Array<T>): Promise<IUpsertResult<T>>;
+    remove(key: string): Promise<IDeleteResult>;
+}
 
-    public abstract updateOne<T>(model: string, value: T): Promise<IUpsertResult<T>>;
+/**
+ * Database interface for non key-value databases.
+ */
+export interface Database {
 
-    public abstract updateAll<T>(model: string, newValues: T, condition: Condition): Promise<IUpsertResult<T>>;
+    connect(): Promise<Database>;
 
-    public abstract deleteOne(model: string, id: number|string): Promise<IDeleteResult>;
+    find<T>(model: string, id: number | string, option?: IQueryOption): Promise<IQueryResult<T>>;
 
-    public abstract deleteAll(model: string, condition: Condition): Promise<IDeleteResult>;
+    find<T>(model: string, modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>;
 
-    public abstract init();
+    find<T>(query: Vql): Promise<IQueryResult<T>>;
 
-    public abstract query<T>(query: string): Promise<T>;
+    insert<T>(model: string, value: T, transaction?: Transaction): Promise<IUpsertResult<T>>;
 
-    public abstract close(connection: any): Promise<boolean>;
+    insert<T>(model: string, values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>>;
 
-    public abstract count<T>(model: string, modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>;
+    update<T>(model: string, value: T, transaction?: Transaction): Promise<IUpsertResult<T>>;
 
-    public abstract count<T>(query: Vql): Promise<IQueryResult<T>>;
+    update<T>(model: string, newValues: T, condition: Condition, transaction?: Transaction): Promise<IUpsertResult<T>>;
 
-    public abstract increase<T>(model: string, id: number|string, field: string, value: number): Promise<IQueryResult<T>>;
+    remove(model: string, id: number | string, transaction?: Transaction): Promise<IDeleteResult>;
 
+    remove(model: string, condition: Condition, transaction?: Transaction): Promise<IDeleteResult>;
+
+    init();
+
+    query<T>(query: string, data?: Array<number | string | Array<number | string>>, transaction?: Transaction): Promise<T>;
+
+    close(connection: any): Promise<boolean>;
+
+    count<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
+
+    count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>;
+
+    increase<T>(model: string, id: number | string, field: string, value: number, transaction?: Transaction): Promise<IQueryResult<T>>;
+}
+
+
+/**
+ * Transaction Class for handling database transactions
+ */
+
+export class Transaction {
+    private _connection: any;
+    public commit: () => Promise<any> = () => Promise.reject(new Error('transaction connection not set'));
+    public rollback: () => Promise<any> = () => Promise.reject(new Error('transaction connection not set'));
+
+    public set connection(connection: any) {
+        this._connection = this._connection || connection;
+    }
+
+    public get connection() {
+        return this._connection
+    }
 }

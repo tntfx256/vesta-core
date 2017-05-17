@@ -1,8 +1,8 @@
-import {Validator} from "../Validator";
-import {User} from "./model/User";
-import {Field} from "../Field";
-import {Test, ITest} from "./model/Test";
-import {Permission} from ".//model/Permission";
+import {Validator} from "../src/Validator";
+import {User} from "./models/User";
+import {Field} from "../src/Field";
+import {Test, ITest} from "./models/Test";
+import {Permission} from "./models/Permission";
 
 describe("Testing Validator.ruleValidator", function () {
 
