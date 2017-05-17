@@ -1,38 +1,35 @@
-export * from "./error/DatabaseError";
-export * from "./error/ValidationError";
-export * from "./Condition";
-export * from "./Database";
-export * from "./DateTime";
-export * from "./DateTimeFactory";
-export * from "./Dictionary";
-export * from "./Err";
-export * from "./ExtArray";
-export * from "./Field";
-export * from "./FileMemeType";
-export * from "./I18N";
-export * from "./ICRUDResult";
-export * from "./ILocale";
-export * from "./IRequestResult";
-export * from "./Model";
-export * from "./Platform";
-export * from "./Schema";
-export * from "./Validator";
-export * from "./Vql";
-//these exports duplicated only for support rollup
-export {DatabaseError} from "./error/DatabaseError";
-export {ValidationError} from "./error/ValidationError";
-export {Condition,HLCondition} from "./Condition";
-export {Database,Transaction} from "./Database";
-export {DateTime} from "./DateTime";
-export {DateTimeFactory} from "./DateTimeFactory";
-export {Dictionary} from "./Dictionary";
-export {Err} from "./Err";
-export {ExtArray} from "./ExtArray";
-export {Field,FieldType,RelationType} from "./Field";
-export {FileMemeType} from "./FileMemeType";
-export {I18N} from "./I18N";
-export {Model} from "./Model";
-export {Platform} from "./Platform";
-export {Schema} from "./Schema";
-export {Validator} from "./Validator";
-export {Vql} from "./Vql";
+export {DatabaseError} from "./lib/error/DatabaseError";
+export {ValidationError} from "./lib/error/ValidationError";
+export {Condition, HLCondition, IComparison, ITraverseCallback} from "./lib/Condition";
+export {
+    Transaction,
+    KeyValueDatabase,
+    ISchemaList,
+    IQueryOption,
+    IOrderBy,
+    Database,
+    IDatabase,
+    IKeyValueDatabase,
+    IModelCollection,
+    IDatabaseConfig
+} from "./lib/Database";
+export {DateTime, IDateTime, IDateTimeLocale} from "./lib/DateTime";
+export {DateTimeFactory} from "./lib/DateTimeFactory";
+export {Dictionary, IVocabs} from "./lib/Dictionary";
+export {Err} from "./lib/Err";
+export {ExtArray} from "./lib/ExtArray";
+export {Field, FieldType, RelationType, IFieldProperties, IRelation} from "./lib/Field";
+export {FileMemeType} from "./lib/FileMemeType";
+export {I18N} from "./lib/I18N";
+export {Model, IModelValues, IModelFields, IModel} from "./lib/Model";
+export {Platform} from "./lib/Platform";
+export {Schema} from "./lib/Schema";
+export {
+    Validator,
+    IAssertCallback,
+    IValidationError,
+    IValidationModelSet,
+    IValidationModel,
+    IValidationErrors
+} from "./lib/Validator";
+export {Vql} from "./lib/Vql";

@@ -1,7 +1,7 @@
-import {Model, IModelValues} from "../../src/Model";
-import {Schema} from "../../src/Schema";
-import {Database} from "../../src/Database";
-import {FieldType} from "../../src/Field";
+import {Model, IModelValues} from "../../src/lib/Model";
+import {Schema} from "../../src/lib/Schema";
+import {Database} from "../../src/lib/Database";
+import {FieldType} from "../../src/lib/Field";
 export interface IPermissionAction {
     Read: string;
     Add: string;

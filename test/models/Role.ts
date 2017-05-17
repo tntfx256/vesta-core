@@ -1,8 +1,8 @@
 import {IPermission, Permission} from "./Permission";
-import {Model, IModelValues} from "../../src/Model";
-import {Schema} from "../../src/Schema";
-import {Database} from "../../src/Database";
-import {FieldType} from "../../src/Field";
+import {Model, IModelValues} from "../../src/lib/Model";
+import {Schema} from "../../src/lib/Schema";
+import {Database} from "../../src/lib/Database";
+import {FieldType} from "../../src/lib/Field";
 export const enum Status{Inactive = 0, Active = 1}
 
 export interface IRole {

@@ -3,12 +3,14 @@
     "declaration": true,
     "module": "commonjs",
     "target": "es6",
-    "outDir": "build"
+    "outDir": "."
   },
   "filesGlob": [
     "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "lib",
+    "*.ts"
   ]
 }

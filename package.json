@@ -1,6 +1,6 @@
 {
   "name": "@vesta/core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Vesta platform libraries",
   "license": "Apache-2.0",
   "main": "build/index.js",
@@ -9,6 +9,8 @@
   "scripts": {
     "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
     "prepare": "gulp prepare",
+    "dev:es5": "gulp dev:es5",
+    "dev:es6": "gulp dev:es6",
     "publish": "gulp publish"
   },
   "author": "hbtb <bishehsary@gmail.com>",
@@ -21,7 +23,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/es6-promise": "^0.0.32",
     "@types/jasmine": "^2.5.47",
     "fs-extra": "^3.0.1",
     "gulp": "^3.9.1",

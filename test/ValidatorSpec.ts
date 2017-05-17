@@ -1,6 +1,6 @@
-import {Validator} from "../src/Validator";
+import {Validator} from "../src/lib/Validator";
 import {User} from "./models/User";
-import {Field} from "../src/Field";
+import {Field} from "../src/lib/Field";
 import {Test, ITest} from "./models/Test";
 import {Permission} from "./models/Permission";
 
