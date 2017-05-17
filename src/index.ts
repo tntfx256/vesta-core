@@ -1,35 +1,20 @@
+export {IComparison, ITraverseCallback, Condition, HLCondition} from "./lib/Condition";
+export {IDatabaseConfig, IOrderBy, IQueryOption, IModelCollection, ISchemaList, IDatabase, IKeyValueDatabase, KeyValueDatabase, Database, Transaction} from "./lib/Database";
+export {IDateTimeLocale, IDateTime, DateTime} from "./lib/DateTime";
+export {DateTimeFactory} from "./lib/DateTimeFactory";
+export {IVocabs, Dictionary} from "./lib/Dictionary";
+export {Err} from "./lib/Err";
 export {DatabaseError} from "./lib/error/DatabaseError";
 export {ValidationError} from "./lib/error/ValidationError";
-export {Condition, HLCondition, IComparison, ITraverseCallback} from "./lib/Condition";
-export {
-    Transaction,
-    KeyValueDatabase,
-    ISchemaList,
-    IQueryOption,
-    IOrderBy,
-    Database,
-    IDatabase,
-    IKeyValueDatabase,
-    IModelCollection,
-    IDatabaseConfig
-} from "./lib/Database";
-export {DateTime, IDateTime, IDateTimeLocale} from "./lib/DateTime";
-export {DateTimeFactory} from "./lib/DateTimeFactory";
-export {Dictionary, IVocabs} from "./lib/Dictionary";
-export {Err} from "./lib/Err";
 export {ExtArray} from "./lib/ExtArray";
-export {Field, FieldType, RelationType, IFieldProperties, IRelation} from "./lib/Field";
+export {RelationType, IRelation, FieldType, IFieldProperties, Field} from "./lib/Field";
 export {FileMemeType} from "./lib/FileMemeType";
 export {I18N} from "./lib/I18N";
-export {Model, IModelValues, IModelFields, IModel} from "./lib/Model";
+export {IQueryResult, IUpsertResult, IDeleteResult, IQueryRequest} from "./lib/ICRUDResult";
+export {ILocale} from "./lib/ILocale";
+export {IRequestResult} from "./lib/IRequestResult";
+export {IModelFields, IModelValues, IModel, Model} from "./lib/Model";
 export {Platform} from "./lib/Platform";
 export {Schema} from "./lib/Schema";
-export {
-    Validator,
-    IAssertCallback,
-    IValidationError,
-    IValidationModelSet,
-    IValidationModel,
-    IValidationErrors
-} from "./lib/Validator";
+export {IAssertCallback, IValidationModel, IValidationModelSet, IValidationError, IValidationErrors, Validator} from "./lib/Validator";
 export {Vql} from "./lib/Vql";
