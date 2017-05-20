@@ -88,11 +88,11 @@ export interface Database {
 
     connect(): Promise<Database>;
 
-    find<T>(model: string, id: number | string, option?: IQueryOption): Promise<IQueryResult<T>>;
+    find<T>(model: string, id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
 
-    find<T>(model: string, modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>;
+    find<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
 
-    find<T>(query: Vql): Promise<IQueryResult<T>>;
+    find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>;
 
     insert<T>(model: string, value: T, transaction?: Transaction): Promise<IUpsertResult<T>>;
 

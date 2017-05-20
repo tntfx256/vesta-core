@@ -106,15 +106,15 @@ export abstract class Model {
         return this.database;
     }
 
-    public static find<T>(id: number | string, option?: IQueryOption): Promise<IQueryResult<T>>
-    public static find<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>
-    public static find<T>(query: Vql): Promise<IQueryResult<T>>
-    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption): Promise<IQueryResult<T>> {
+    public static find<T>(id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
+    public static find<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
+    public static find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
+    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>> {
         if (arg1 instanceof Vql) {
-            return (this.database).find<T>(<Vql>arg1);
+            return (this.database).find<T>(<Vql>arg1, transaction);
         } else {
-            return (this.database).find<T>(this.schema.name, <any>arg1, arg2);
-    }
+            return (this.database).find<T>(this.schema.name, <any>arg1, arg2, transaction);
+        }
 
     }
 
@@ -125,7 +125,7 @@ export abstract class Model {
             return this.database.update(this.schema.name, value, <Condition>arg2, transaction)
         } else {
             return this.database.update(this.schema.name, value, <Transaction>arg2)
-    }
+        }
     }
 
     public static insert<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>>
@@ -145,14 +145,14 @@ export abstract class Model {
         return (this.database).query(query, null, transaction);
     }
 
-    public static count<T>(modelValues: T, option?: IQueryOption): Promise<IQueryResult<T>>
-    public static count<T>(query: Vql): Promise<IQueryResult<T>>
-    public static count<T>(arg1?: T | Vql, option?: IQueryOption): Promise<IQueryResult<T>> {
+    public static count<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
+    public static count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
+    public static count<T>(arg1?: T | Vql, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>> {
         if (arg1 instanceof Vql) {
-            return this.database.count(arg1);
+            return this.database.count(arg1, transaction);
         }
         else {
-            return this.database.count(this.schema.name, arg1, option);
+            return this.database.count(this.schema.name, arg1, option, transaction);
         }
     }
 
