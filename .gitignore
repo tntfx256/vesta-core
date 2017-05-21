@@ -1,6 +1,5 @@
 .idea
-npm-debug.*
-tsd-debug.*
+npm-debug.log
 /es5
 /es6
 /node_modules
