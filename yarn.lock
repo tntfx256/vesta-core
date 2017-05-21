@@ -23,9 +23,9 @@
   version "2.5.47"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.47.tgz#bbba9bcf0e95e7890c6f4a47394e8bacaa960eb6"
 
-"@vesta/devmaid@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@vesta/devmaid/-/devmaid-0.2.2.tgz#2ed3212bd3456a6cca8a55082afdffe46c041b19"
+"@vesta/devmaid@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@vesta/devmaid/-/devmaid-0.2.3.tgz#1cd72a803d260579c5eac779c65bd7415cac321c"
   dependencies:
     fs-extra "^3.0.1"
     gulp "^3.9.1"

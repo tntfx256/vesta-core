@@ -1,9 +1,9 @@
 {
   "name": "@vesta/core",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Vesta platform libraries",
   "license": "Apache-2.0",
-  "main": "build/index.js",
+  "main": "index.js",
   "typings": "index.d.ts",
   "repository": "https://github.com/VestaRayanAfzar/vesta-lib.git",
   "scripts": {
@@ -24,7 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jasmine": "^2.5.47",
-    "@vesta/devmaid": "^0.2.2",
+    "@vesta/devmaid": "^0.2.3",
     "gulp": "^3.9.1",
     "jasmine-core": "^2.4.1",
     "jasmine-node": "^1.14.5"
