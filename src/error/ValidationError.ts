@@ -1,9 +1,9 @@
 import {Err} from "../Err";
-import {IValidationErrors} from "../Validator";
+import {IValidationError} from "../Validator";
 
 export class ValidationError extends Err {
 
-    constructor(public violations?: IValidationErrors, message?: string) {
+    constructor(public violations?: IValidationError, message?: string) {
         super(Err.Code.Validation, message);
     }
 }

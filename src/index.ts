@@ -16,5 +16,5 @@ export {IRequestResult} from "./IRequestResult";
 export {IModelFields, IModelValues, IModel, Model} from "./Model";
 export {Platform} from "./Platform";
 export {Schema} from "./Schema";
-export {IAssertCallback, IValidationModel, IValidationModelSet, IValidationError, IValidationErrors, Validator} from "./Validator";
+export {IAssertCallback, IValidationModel, IValidationModelSet, IValidationError, Validator} from "./Validator";
 export {Vql} from "./Vql";

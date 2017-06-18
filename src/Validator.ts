@@ -1,7 +1,7 @@
 import {Platform} from "./Platform";
 import {FileMemeType} from "./FileMemeType";
 import {IModelValues} from "./Model";
-import {FieldType, Field, RelationType, IRelation} from "./Field";
+import {Field, FieldType, IRelation, RelationType} from "./Field";
 import {Schema} from "./Schema";
 
 export interface IAssertCallback {
@@ -17,11 +17,8 @@ export interface IValidationModelSet {
 }
 
 export interface IValidationError {
-    rule: string;
-}
-
-export interface IValidationErrors {
-    [fieldName: string]: IValidationError;
+    // fieldName: failedRuleName
+    [fieldName: string]: string;
 }
 
 export class Validator {
@@ -36,9 +33,9 @@ export class Validator {
     /**
      * Returns the validation error on the {fieldName: value} object
      */
-    public static validate(values: IModelValues, schema: Schema): IValidationErrors {
+    public static validate(values: IModelValues, schema: Schema): IValidationError {
         let validationPatterns: IValidationModelSet = schema.validateSchema;
-        let errors: IValidationErrors = null;
+        let errors: IValidationError = null;
         // let valid = true;
         for (let fieldNames = Object.keys(validationPatterns), i = 0, il = fieldNames.length; i < il; ++i) {
             let fieldName = fieldNames[i];
@@ -48,9 +45,10 @@ export class Validator {
             if (isRequired || hasValue) {
                 let result = Validator.validateField(field, validationPatterns[fieldName], values);
                 if (result) {
-                    if (!errors) errors = {};
-                    errors[fieldName] = {rule: result};
-                    // valid = false;
+                    if (!errors) {
+                        errors = {};
+                    }
+                    errors[fieldName] = result;
                 }
             }
         }

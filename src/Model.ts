@@ -3,8 +3,8 @@ import {Schema} from "./Schema";
 import {Database, IQueryOption, Transaction} from "./Database";
 import {Vql} from "./Vql";
 import {Condition} from "./Condition";
-import {Validator, IValidationErrors} from "./Validator";
-import {IDeleteResult, IUpsertResult, IQueryResult} from "./ICRUDResult";
+import {IValidationError, Validator} from "./Validator";
+import {IDeleteResult, IQueryResult, IUpsertResult} from "./ICRUDResult";
 
 export interface IModelFields {
     [fieldName: string]: Field
@@ -31,12 +31,12 @@ export abstract class Model {
         this.database = database;
     }
 
-    public validate(...fieldNames: Array<string>): IValidationErrors {
+    public validate(...fieldNames: Array<string>): IValidationError {
         let result = Validator.validate(this.getValues(...fieldNames), this.schema);
-        if (!result) return result;
+        if (!result) return null;
         if (fieldNames.length) {
             let hasError = false;
-            let subset: IValidationErrors = {};
+            let subset: IValidationError = {};
             for (let i = 0, il = fieldNames.length; i < il; ++i) {
                 let fieldName = fieldNames[i];
                 if (!result[fieldName]) continue;
