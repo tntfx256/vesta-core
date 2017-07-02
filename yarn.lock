@@ -23,9 +23,9 @@
   version "2.5.53"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.53.tgz#4e0cefad09df5ec48c8dd40433512f84b1568d61"
 
-"@vesta/devmaid@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@vesta/devmaid/-/devmaid-0.2.6.tgz#6a5357b89f6d22187acb29734c0a64063c05c67a"
+"@vesta/devmaid@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@vesta/devmaid/-/devmaid-0.2.7.tgz#986778da9b10e027ea80c1ea7c1c9c7af6f9e510"
   dependencies:
     fs-extra "^3.0.1"
     gulp "^3.9.1"
@@ -1022,17 +1022,13 @@ normalize-path@^2.0.1, normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
-object-assign@4.1.0:
+object-assign@4.1.0, object-assign@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
 object-assign@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
-
-object-assign@^4.0.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
 object.defaults@^1.1.0:
   version "1.1.0"

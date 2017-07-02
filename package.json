@@ -1,6 +1,6 @@
 {
   "name": "@vesta/core",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Vesta platform libraries",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -24,7 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jasmine": "^2.5.47",
-    "@vesta/devmaid": "^0.2.6",
+    "@vesta/devmaid": "^0.2.7",
     "gulp": "^3.9.1",
     "jasmine-core": "^2.4.1",
     "jasmine-node": "^1.14.5"
