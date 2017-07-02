@@ -12,7 +12,6 @@ export {FileMemeType} from "./FileMemeType";
 export {I18N} from "./I18N";
 export {IQueryResult, IUpsertResult, IDeleteResult, IQueryRequest} from "./ICRUDResult";
 export {ILocale} from "./ILocale";
-export {IRequestResult} from "./IRequestResult";
 export {IModelFields, IModelValues, IModel, Model} from "./Model";
 export {Platform} from "./Platform";
 export {Schema} from "./Schema";

@@ -116,7 +116,7 @@ export interface Database {
 
     count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>;
 
-    increase<T>(model: string, id: number | string, field: string, value: number, transaction?: Transaction): Promise<IQueryResult<T>>;
+    increase<T>(model: string, id: number | string, field: string, value: number, transaction?: Transaction): Promise<IUpsertResult<T>>;
 }
 
 

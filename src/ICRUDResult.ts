@@ -1,4 +1,3 @@
-import {Err} from "./Err";
 import {IQueryOption} from "./Database";
 
 export interface IQueryResult<T> {
@@ -10,12 +9,10 @@ export interface IQueryResult<T> {
 
 export interface IUpsertResult<T> {
     items: Array<T>;
-    error: Err;
 }
 
 export interface IDeleteResult {
-    items: Array<number|string>;
-    error: Err;
+    items: Array<number | string>;
 }
 
 export interface IQueryRequest<T> extends IQueryOption {

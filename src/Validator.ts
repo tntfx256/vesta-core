@@ -281,7 +281,7 @@ export class Validator {
             return (value === true || value === false || value === 0 || value === 1);
         },
         timestamp: function (value): boolean {
-            return 'number' === typeof value;
+            return !isNaN(+value);
         },
         list: function (value, itemType: FieldType, field: Field, allValues: IModelValues): boolean {
             // console.log(value, itemType);

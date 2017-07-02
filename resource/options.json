@@ -1,12 +1,12 @@
 {
   "modules": {
-    "x": "y"
   },
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
     "preserveConstEnums": true,
     "declaration": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "./build/"
   },
   "src": [

@@ -106,14 +106,14 @@ export abstract class Model {
         return this.database;
     }
 
+    public static find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
     public static find<T>(id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
     public static find<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>> {
+    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IQueryResult<T>> {
         if (arg1 instanceof Vql) {
             return (this.database).find<T>(<Vql>arg1, transaction);
         } else {
-            return (this.database).find<T>(this.schema.name, <any>arg1, arg2, transaction);
+            return (this.database).find<T>(this.schema.name, <any>arg1, <IQueryOption>arg2, transaction);
         }
 
     }
@@ -147,12 +147,12 @@ export abstract class Model {
 
     public static count<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
     public static count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static count<T>(arg1?: T | Vql, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>> {
+    public static count<T>(arg1?: T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IQueryResult<T>> {
         if (arg1 instanceof Vql) {
-            return this.database.count(arg1, transaction);
+            return this.database.count(arg1, <Transaction>arg2);
         }
         else {
-            return this.database.count(this.schema.name, arg1, option, transaction);
+            return this.database.count(this.schema.name, arg1, <IQueryOption>arg2, transaction);
         }
     }
 
