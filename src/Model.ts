@@ -81,9 +81,6 @@ export abstract class Model {
         if (values) {
             this.setValues(values);
         }
-        // removing id for insertion
-        // todo: set previous id on failure?
-        delete this['id'];
         return (this.database).insert(this.schema.name, this.getValues(), transaction);
     }
 
