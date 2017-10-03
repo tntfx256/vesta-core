@@ -37,34 +37,34 @@ export class Err implements Error {
     };
 
     public static Message = {
-        [Err.Code.DBConnection]: 'Database Connection Error',
-        [Err.Code.Database]: 'Database Operation Error',
-        [Err.Code.DBDuplicateEntry]: 'Database Duplicate Entry Error',
-        [Err.Code.DBQuery]: 'Database Query Error',
-        [Err.Code.DBInsert]: 'Database Insertion Error',
-        [Err.Code.DBUpdate]: 'Database Update Entry Error',
-        [Err.Code.DBDelete]: 'Database Delete Entry Error',
-        [Err.Code.DBInvalidDriver]: 'Database Invalid Driver',
-        [Err.Code.DBRecordCount]: 'Database Records Count Error',
-        [Err.Code.DBNoRecord]: 'Database No Record Found',
+        [Err.Code.DBConnection]: 'err_db_conn',
+        [Err.Code.Database]: 'err_db_op',
+        [Err.Code.DBDuplicateEntry]: 'err_dup_entry',
+        [Err.Code.DBQuery]: 'err_db_query',
+        [Err.Code.DBInsert]: 'err_db_insert',
+        [Err.Code.DBUpdate]: 'err_db_update',
+        [Err.Code.DBDelete]: 'err_db_delete',
+        [Err.Code.DBInvalidDriver]: 'err_db_driver',
+        [Err.Code.DBRecordCount]: 'err_db_record_cnt',
+        [Err.Code.DBNoRecord]: 'err_db_no_record',
         // acl
-        [Err.Code.Unauthorized]: 'Unauthorized',
-        [Err.Code.Forbidden]: 'Forbidden',
-        [Err.Code.Client]: 'Bad Request',
-        [Err.Code.Server]: 'Internal Server Error',
-        [Err.Code.Token]: 'Invalid Token',
+        [Err.Code.Unauthorized]: 'err_unauthorized',
+        [Err.Code.Forbidden]: 'err_forbidden',
+        [Err.Code.Client]: 'err_bad_req',
+        [Err.Code.Server]: 'err_server',
+        [Err.Code.Token]: 'err_token',
         // logical
-        [Err.Code.WrongInput]: 'Wrong Input',
-        [Err.Code.OperationFailed]: 'Operation Failed',
+        [Err.Code.WrongInput]: 'err_input',
+        [Err.Code.OperationFailed]: 'err_op',
         // form
-        [Err.Code.Validation]: 'Invalid Data',
+        [Err.Code.Validation]: 'err_validation',
         //
-        [Err.Code.FileSystem]: 'File Operation Error',
-        [Err.Code.Device]: '',
+        [Err.Code.FileSystem]: 'err_file',
+        [Err.Code.Device]: 'err_device',
         //
-        [Err.Code.Implementation]: 'Method Is Not Implemented',
-        [Err.Code.NoDataConnection]: 'No Network Connection',
-        [Err.Code.Unknown]: 'Unknown Error'
+        [Err.Code.Implementation]: 'err_method_impl',
+        [Err.Code.NoDataConnection]: 'err_net_conn',
+        [Err.Code.Unknown]: 'err_unknown'
     };
 
     constructor(code: number = Err.Code.Unknown, message?: string) {
