@@ -257,7 +257,7 @@ export class Validator {
             return 'string' === typeof value;
         },
         enum: function (value, enumValues: Array<any>): boolean {
-            return enumValues.indexOf(value) >= 0;
+            return enumValues.indexOf(value) >= 0 || enumValues.indexOf(+value) >= 0;
         },
         email: function (email): boolean {
             return !!Validator.regex.email.exec(email);
