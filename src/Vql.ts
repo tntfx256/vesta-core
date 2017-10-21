@@ -1,5 +1,5 @@
-import {IModelValues, IModel} from "./Model";
-import {IQueryOption, IOrderBy} from "./Database";
+import {IModel, IModelValues} from "./Model";
+import {IOrderBy, IQueryOption} from "./Database";
 import {FieldType} from "./Field";
 import {Condition} from "./Condition";
 
@@ -12,10 +12,10 @@ export class Vql implements IQueryOption {
     public limit: number = 0;
     public offset: number = 0;
     public page: number = 1;
-    public fields: Array<string|Vql> = [];
+    public fields: Array<string | Vql> = [];
     public orderBy: Array<IOrderBy> = [];
-    public relations: Array<string|{name: string, fields: Array<string>}> = [];
-    public joins: Array<{field: string, vql: Vql, type: number}> = [];
+    public relations: Array<string | { name: string, fields: Array<string> }> = [];
+    public joins: Array<{ field: string, vql: Vql, type: number }> = [];
     // Vql
     public model: string;
     public condition: Condition;
@@ -45,7 +45,7 @@ export class Vql implements IQueryOption {
                     cmp = new Condition(Condition.Operator.And);
                     cmp.append(new Condition(Condition.Operator.GreaterThanOrEqualTo).compare(field, start))
                         .append(new Condition(Condition.Operator.LessThanOrEqualTo).compare(field, end))
-                } else if (filter[field].indexOf('*') >= 0 || filter[field].indexOf('?') >= 0) {
+                } else if ('string' == typeof  filter[field] && (filter[field].indexOf('*') >= 0 || filter[field].indexOf('?') >= 0)) {
                     value = value.replace(/\*/g, '%');
                     value = value.replace(/\?/g, '_');
                     cmp = new Condition(Condition.Operator.Like);
@@ -75,7 +75,7 @@ export class Vql implements IQueryOption {
         return this;
     }
 
-    public select(...fields: Array<string|Vql>): Vql {
+    public select(...fields: Array<string | Vql>): Vql {
         this.fields = fields;
         return this;
     }
@@ -97,7 +97,7 @@ export class Vql implements IQueryOption {
 
     public sortBy(orderBy: IOrderBy): Vql;
     public sortBy(field: string, ascending?: boolean): Vql;
-    public sortBy(arg1: IOrderBy|string, ascending: boolean = true): Vql {
+    public sortBy(arg1: IOrderBy | string, ascending: boolean = true): Vql {
         if ('string' == typeof arg1) {
             return this.sortByField(<string>arg1, ascending)
         } else if (arg1 instanceof Array) {
@@ -122,7 +122,7 @@ export class Vql implements IQueryOption {
         return this;
     }
 
-    public fetchRecordFor(...fields: Array<string|{name: string, fields: Array<string>}>): Vql {
+    public fetchRecordFor(...fields: Array<string | { name: string, fields: Array<string> }>): Vql {
         for (let i = fields.length; i--;) {
             let field = fields[i];
             if (this.relations.indexOf(field) < 0) {
@@ -139,7 +139,7 @@ export class Vql implements IQueryOption {
 
     public join<T>(field: string, vql: Vql, type?: number): Vql
     public join<T>(field: string, model: string, value: T, type?: number): Vql
-    public join<T>(field: string, arg1: Vql|string, arg2: number|T, arg3?: number): Vql {
+    public join<T>(field: string, arg1: Vql | string, arg2: number | T, arg3?: number): Vql {
         let vql: Vql;
         let type;
         if (typeof arg1 == 'string') {
