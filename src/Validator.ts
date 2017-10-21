@@ -41,7 +41,7 @@ export class Validator {
             const fieldName = fieldNames[i];
             const isRequired = 'required' in validationPatterns[fieldName];
             const fieldValue = values[fieldName];
-            const hasValue = values.hasOwnProperty(fieldName) && fieldValue !== undefined && fieldValue !== null && fieldValue != "";
+            const hasValue = values.hasOwnProperty(fieldName) && fieldValue !== undefined && fieldValue !== null && fieldValue !== "";
             const field = schema.getField(fieldName);
             if (isRequired || hasValue) {
                 let result = Validator.validateField(field, validationPatterns[fieldName], values);
