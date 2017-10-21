@@ -543,6 +543,15 @@ gulp-typescript@^3.1.6:
     through2 "~2.0.1"
     vinyl-fs "~2.4.3"
 
+gulp-typescript@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/gulp-typescript/-/gulp-typescript-3.2.2.tgz#b7e5e1d3cb35f772e53e604026601826e2be77fc"
+  dependencies:
+    gulp-util "~3.0.7"
+    source-map "~0.5.3"
+    through2 "~2.0.1"
+    vinyl-fs "~2.4.3"
+
 gulp-util@^3.0.0, gulp-util@~3.0.7:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
