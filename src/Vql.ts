@@ -34,7 +34,7 @@ export class Vql implements IQueryOption {
         let condition = new Condition(Condition.Operator.And);
         let fieldsData = model.schema.getFields();
         for (let field in filter) {
-            if (filter.hasOwnProperty(field)) {
+            if (filter.hasOwnProperty(field) && filter[field] !== undefined) {
                 let cmp;
                 let fieldData = fieldsData[field];
                 let value = filter[field];
@@ -64,7 +64,7 @@ export class Vql implements IQueryOption {
     public filter(filter: IModelValues): Vql {
         let condition = new Condition(Condition.Operator.And);
         for (let field in filter) {
-            if (filter.hasOwnProperty(field)) {
+            if (filter.hasOwnProperty(field) && filter[field] !== undefined) {
                 let cmp;
                 cmp = new Condition(Condition.Operator.EqualTo);
                 cmp.compare(field, filter[field]);
