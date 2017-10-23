@@ -38,10 +38,11 @@ export class Validator {
         let errors: IValidationError = null;
         // let valid = true;
         for (let fieldNames = Object.keys(validationPatterns), i = 0, il = fieldNames.length; i < il; ++i) {
-            let fieldName = fieldNames[i];
-            let isRequired = validationPatterns[fieldName].hasOwnProperty('required');
-            let hasValue = values.hasOwnProperty(fieldName) && values[fieldName] !== undefined && values[fieldName] !== null;
-            let field = schema.getField(fieldName);
+            const fieldName = fieldNames[i];
+            const isRequired = 'required' in validationPatterns[fieldName];
+            const fieldValue = values[fieldName];
+            const hasValue = values.hasOwnProperty(fieldName) && fieldValue !== undefined && fieldValue !== null && fieldValue !== "";
+            const field = schema.getField(fieldName);
             if (isRequired || hasValue) {
                 let result = Validator.validateField(field, validationPatterns[fieldName], values);
                 if (result) {
@@ -257,7 +258,7 @@ export class Validator {
             return 'string' === typeof value;
         },
         enum: function (value, enumValues: Array<any>): boolean {
-            return enumValues.indexOf(value) >= 0;
+            return enumValues.indexOf(value) >= 0 || enumValues.indexOf(+value) >= 0;
         },
         email: function (email): boolean {
             return !!Validator.regex.email.exec(email);

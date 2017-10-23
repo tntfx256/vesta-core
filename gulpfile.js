@@ -8,7 +8,7 @@ let aid = new vesta.TypescriptTarget({
     transform: {
         package: (json, target) => {
             if (target === 'es5') {
-                json.devDependencies['typescript'] = '2.0';
+                json.devDependencies['typescript'] = '2.0.0';
                 json.dependencies['es6-promise'] = '^4.1.0';
                 json.devDependencies['@types/es6-promise'] = '^0.0.32';
             }
