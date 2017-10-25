@@ -1,5 +1,5 @@
 import {Platform} from "./Platform";
-import {FileMemeType} from "./FileMemeType";
+import {MimeType} from "./MimeType";
 import {IModelValues} from "./Model";
 import {Field, FieldType, IRelation, RelationType} from "./Field";
 import {Schema} from "./Schema";
@@ -62,18 +62,18 @@ export class Validator {
     public static validateField(field: Field, validationRules: IValidationModel, allValues: IModelValues): string {
         let value = allValues[field.fieldName];
         // checking required rule
-        if (!Validator.ruleValidator.required(value, validationRules['required'], field)) return 'required';
+        if (!Validator.ruleValidator.required(value, validationRules.required, field)) return 'required';
         let validationRulesCpy = JSON.parse(JSON.stringify(validationRules));
         // since required has been checked, it must be removed from rules
-        delete validationRulesCpy['required'];
+        delete validationRulesCpy.required;
         //  if the field is of type List, the validation must be applied on each list
         if (field.properties.type == FieldType.List) {
             // checking type on each list items
             if (!Validator.ruleValidator.type(value, field.properties.type, field, allValues)) return 'type';
             // since type has been checked, it must be removed from rules;
             // type will also trigger the list method
-            delete validationRulesCpy['type'];
-            delete validationRulesCpy['list'];
+            delete validationRulesCpy.type;
+            delete validationRulesCpy.list;
             for (let i = 0, il = value.length; i < il; ++i) {
                 let err = validateValue(value[i], validationRulesCpy);
                 if (err) return err;
@@ -179,15 +179,15 @@ export class Validator {
             let isExtensionValid = true;
             if (part.length) {
                 isExtensionValid = false;
-                let meme = FileMemeType.getMeme(part[part.length - 1]);
-                for (let i = meme.length; i--;) {
-                    if (acceptedTypes.indexOf(meme[i]) >= 0) {
+                let mime = MimeType.getMime(part[part.length - 1]);
+                for (let i = mime.length; i--;) {
+                    if (acceptedTypes.indexOf(mime[i]) >= 0) {
                         isExtensionValid = true;
                         break;
                     }
                 }
             }
-            if (file.type == 'application/octet-stream' || !file.type || !FileMemeType.isValid(file.type)) {
+            if (file.type == 'application/octet-stream' || !file.type || !MimeType.isValid(file.type)) {
                 return isExtensionValid;
             } else {
                 return isExtensionValid && acceptedTypes.indexOf(file.type) >= 0;
