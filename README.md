@@ -5,12 +5,19 @@
 * es5 `@vesta/core-es5`
 
 ## List of libraries
+* Condition
 * Database
 * DateTime
+* Dictionary
 * Err
-* I18N
+    * DatabaseError
+    * ValidationError
+* Field
+* ILocale
+* Mime
 * Model
 * Platform
+* Sanitizer
 * Schema
 * Validation
 * Vql (Vesta Query Language)
