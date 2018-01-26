@@ -1,7 +1,7 @@
 import {IAssertCallback} from "./Validator";
 import {IModel} from "./Model";
 
-export const enum RelationType { One2One = 1, One2Many, Many2Many, Reverse}
+export const enum RelationType {One2Many = 1, Many2Many, Reverse}
 
 /**
  *
@@ -17,32 +17,13 @@ export interface IRelation {
     isWeek?: boolean;
 }
 
-
-/*export class Relationship implements IRelation {
- public static Type = {
- One2One: 1,
- One2Many: 2,
- Many2Many: 3
- };
- public type:number;
- public model:IModel;
- public isWeek:boolean = false;
-
- constructor(relationType:number) {
- this.type = relationType;
- }
-
- public relatedModel(model:IModel):Relationship {
- this.model = model;
- return this;
- }
- }*/
-
 export const enum FieldType {String = 1, Text, Password, Tel, EMail, URL, Number, Integer, Float, File, Timestamp, Boolean, Object, Enum, Relation, List}
 
 export interface IFieldProperties {
     type: FieldType;
     list: FieldType;
+    // inline list won't create new table to hold list of data
+    inline?: boolean;
     required?: boolean;
     pattern?: RegExp;
     minLength?: number;
@@ -133,13 +114,13 @@ export class Field {
         return this;
     }
 
-    public unique(isUnique: boolean = true): Field {
-        this._properties.unique = isUnique;
+    public unique(): Field {
+        this._properties.unique = true;
         return this;
     }
 
-    public primary(isPrimary: boolean = true): Field {
-        this._properties.primary = isPrimary;
+    public primary(): Field {
+        this._properties.primary = true;
         return this;
     }
 
@@ -164,10 +145,11 @@ export class Field {
     }
 
     /**
-     *  for one to one relationship
+     *  whether or not this is an inline list or another table must be created for it
      */
-    public isPartOf(model: IModel): Field {
-        return this.setRelation(RelationType.One2One, model);
+    public inline(): Field {
+        this._properties.inline = true;
+        return this;
     }
 
     /**

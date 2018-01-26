@@ -1,34 +1,37 @@
 {
-  "name": "@vesta/core",
-  "version": "0.3.0",
-  "description": "Vesta platform libraries",
-  "license": "Apache-2.0",
-  "main": "index.js",
-  "typings": "index.d.ts",
-  "repository": "https://github.com/VestaRayanAfzar/vesta-lib.git",
-  "scripts": {
-    "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
-    "prepare": "gulp prepare",
-    "dev:es5": "gulp dev:es5",
-    "dev:es6": "gulp dev:es6",
-    "publish": "gulp publish"
-  },
-  "author": "hbtb <bishehsary@gmail.com>",
-  "contributors": [
-    "javadkh2 <khalilian.javad@gmail.com>"
-  ],
-  "bugs": {
-    "url": "https://github.com/VestaRayanAfzar/vesta-lib/issues",
-    "email": "bishehsary@gmail.com"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@types/jasmine": "^2.5.47",
-    "@vesta/devmaid": "^0.2.7",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^3.2.2",
-    "jasmine-core": "^2.4.1",
-    "jasmine-node": "^1.14.5",
-    "yarn": "^1.2.1"
-  }
+    "name": "@vesta/core",
+    "version": "1.0.0",
+    "description": "Vesta platform core library",
+    "license": "Apache-2.0",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "repository": "https://github.com/VestaRayanAfzar/vesta-core.git",
+    "scripts": {
+        "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
+        "dev[es5]": "gulp dev[es5]",
+        "dev[es6]": "gulp dev[es6]",
+        "publish": "gulp publish"
+    },
+    "author": "hbtb <bishehsary@gmail.com>",
+    "contributors": [
+        "javadkh2 <khalilian.javad@gmail.com>"
+    ],
+    "bugs": {
+        "url": "https://github.com/VestaRayanAfzar/vesta-core/issues",
+        "email": "bishehsary@gmail.com"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/jasmine": "^2.8.5",
+        "@types/node": "^9.3.0",
+        "@vesta/devmaid": "^0.3.1",
+        "gulp": "^3.9.1",
+        "gulp-typescript": "^3.2.4",
+        "jasmine-core": "^2.9.1",
+        "jasmine-node": "^1.14.5",
+        "mkdirp": "^0.5.1",
+        "rimraf": "^2.6.2",
+        "tslint": "^5.9.1"
+    },
+    "private": true
 }

@@ -12,21 +12,22 @@ export class Platform {
 
     private static getInfo() {
         if (Platform.hasInfo) return;
-        Platform.type = typeof window === 'undefined' ? 'server' : 'client';
-        if (Platform.type == 'client') {
-            if (navigator.userAgent.match(/Android/i)) {
+        Platform.type = typeof window === 'undefined' ? Platform.Type.ServerSide : Platform.Type.ClientSide;
+        if (Platform.type == Platform.Type.ClientSide) {
+            const userAgent = window.navigator.userAgent;
+            if (userAgent.match(/Android/i)) {
                 Platform.isMobile = true;
                 Platform.os = Platform.OS.Android;
-            } else if (navigator.userAgent.match(/BlackBerry/i)) {
+            } else if (userAgent.match(/BlackBerry/i)) {
                 Platform.isMobile = true;
                 Platform.os = Platform.OS.BlackBerry;
-            } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
                 Platform.isMobile = true;
                 Platform.os = Platform.OS.IOS;
-            } else if (navigator.userAgent.match(/Opera Mini/i)) {
+            } else if (userAgent.match(/Opera Mini/i)) {
                 Platform.isMobile = true;
                 //Platform.os = Platform.OS.IOS;
-            } else if (navigator.userAgent.match(/IEMobile/i)) {
+            } else if (userAgent.match(/IEMobile/i)) {
                 Platform.isMobile = true;
                 //Platform.os = Platform.OS.IOS;
             } else {
@@ -66,5 +67,9 @@ export class Platform {
     public static isIos(): boolean {
         Platform.getInfo();
         return Platform.os == Platform.OS.IOS;
+    }
+
+    public static isPWA(): boolean {
+        return Platform.Platform.Browser && window.navigator['standalone'];
     }
 }

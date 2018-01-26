@@ -3,6 +3,7 @@ export interface ILocale {
     lang: string;
     country: string;
     countryCode: string;
+    phoneCode: number;
     dir: string;
     dateSep: string;
     dateTimeSep: string;

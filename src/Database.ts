@@ -1,8 +1,8 @@
-import {Schema} from "./Schema";
-import {IModel} from "./Model";
-import {Vql} from "./Vql";
 import {Condition} from "./Condition";
-import {IDeleteResult, IUpsertResult, IQueryResult} from "./ICRUDResult";
+import {IDeleteResult, IQueryResult, IUpsertResult} from "./ICRUDResult";
+import {IModel} from "./Model";
+import {Schema} from "./Schema";
+import {Vql} from "./Vql";
 
 /**
  * protocol     database protocol (Database.MySQL | Database.Redis | ...)
@@ -13,12 +13,12 @@ import {IDeleteResult, IUpsertResult, IQueryResult} from "./ICRUDResult";
  * database     name of the database or collection
  */
 export interface IDatabaseConfig {
-    protocol: string;
-    host: string;
-    port: number;
-    user: string;
-    password: string;
     database: string;
+    host: string;
+    password: string;
+    port: number;
+    protocol?: string;
+    user: string;
 }
 
 /**
@@ -26,8 +26,8 @@ export interface IDatabaseConfig {
  * ascending    sort ascending if true, otherwise sort descending
  */
 export interface IOrderBy {
-    field: string;
     ascending: boolean;
+    field: string;
 }
 
 /**
@@ -63,6 +63,7 @@ export interface IDatabase {
 export interface IKeyValueDatabase {
     new (config: IDatabaseConfig): KeyValueDatabase;
 }
+
 /**
  * Database interface for key-value databases.
  */
@@ -72,7 +73,7 @@ export interface KeyValueDatabase {
 
     close(connection: any): Promise<boolean>;
 
-    find<T>(key: string): Promise<IQueryResult<T>>;
+    find<T>(key: string): Promise<IQueryResult<T | string>>;
 
     insert<T>(key: string, value: T): Promise<IUpsertResult<T>>;
 
