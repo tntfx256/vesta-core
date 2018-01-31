@@ -1,6 +1,12 @@
 const Packager = require("./resources/Packager");
+const Indexer = require("./resources/Indexer");
 const base = "vesta";
 
+// creating index file
+const indexer = new Indexer(`${__dirname}/src`);
+indexer.generate();
+
+// creating packages
 const pkgr = new Packager({
     base: base,
     root: __dirname,
@@ -19,7 +25,7 @@ const pkgr = new Packager({
         },
         tsconfig: function(tsconfig, target, isProduction) {
             tsconfig.compilerOptions.target = target;
-            tsconfig.compilerOptions.module = "es2015";
+            // tsconfig.compilerOptions.module = "es2015";
             tsconfig.include = ["../../src/**/*"];
             tsconfig.exclude = [`../../${base}/**/*`];
             return tsconfig;

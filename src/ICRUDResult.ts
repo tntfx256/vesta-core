@@ -1,10 +1,10 @@
-import {IQueryOption} from "./Database";
+import { IQueryOption } from "./Database";
 
 export interface IQueryResult<T> {
-    total?: number;
+    items?: Array<T>;
     limit?: number;
     page?: number;
-    items?: Array<T>;
+    total?: number;
 }
 
 export interface IUpsertResult<T> {

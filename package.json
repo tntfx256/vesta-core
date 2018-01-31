@@ -1,6 +1,6 @@
 {
     "name": "@vesta/core",
-    "version": "1.1.4",
+    "version": "1.1.6",
     "description": "Vesta platform core library",
     "license": "Apache-2.0",
     "main": "index.js",

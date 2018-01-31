@@ -50,10 +50,7 @@ class Packager {
         const destDirectory = `${this.config.base}/${target}`;
         this.compile(target, true);
         try {
-            execSync(`npm publish --access=public`, {
-                cwd: destDirectory,
-                stdio: "inherit"
-            });
+            execSync(`npm publish --access=public`, {cwd: destDirectory, stdio: "inherit"});
             this.log(`Finished publish[${target}]`);
         } catch (e) {
             this.error(`Error publish[${target}]`, e.message);
