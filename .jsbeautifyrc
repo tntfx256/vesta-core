@@ -1,9 +1,0 @@
-{
-    "css": {
-        "allowed_file_extensions": ["scss"],
-        "newline_between_rules": true,
-        "preserve_newlines": true,
-        "end_with_newline": true,
-        "selector_separator_newline": false
-    }
-}
