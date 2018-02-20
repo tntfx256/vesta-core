@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+.vscode
 npm-debug.log
 /es5
 /es6
