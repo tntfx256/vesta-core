@@ -1,6 +1,6 @@
 {
     "name": "@vesta/core",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "description": "Vesta platform core library",
     "license": "Apache-2.0",
     "main": "index.js",
@@ -20,7 +20,9 @@
         "url": "https://github.com/VestaRayanAfzar/vesta-core/issues",
         "email": "bishehsary@gmail.com"
     },
-    "dependencies": {},
+    "dependencies": {
+        "tslib": "^1.9.0"
+    },
     "devDependencies": {
         "@types/jasmine": "^2.8.5",
         "@types/node": "^9.3.0",
