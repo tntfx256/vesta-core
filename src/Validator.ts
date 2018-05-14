@@ -22,7 +22,7 @@ export interface IValidationError {
 export class Validator {
     public static regex = {
         email: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/i,
-        phone: /^[0-9\+][0-9 \-\()]{8,18}$/,
+        phone: /^[0-9\+][0-9 \-\()]{7,18}$/,
         url: /^(https?|ftp):\/\/(-\.)?([^\s/?\.#-]+\.?)+(\/[^\s]*)?$/i,
     };
 
@@ -46,16 +46,16 @@ export class Validator {
      *
      */
     public static ruleValidator = {
-        assert(value, cb: IAssertCallback, field: Field, allValues: IModelValues): boolean {
+        assert(value: any, cb: IAssertCallback, field: Field, allValues: IModelValues): boolean {
             return cb(value, field, allValues);
         },
-        boolean(value): boolean {
+        boolean(value: any): boolean {
             return (value === true || value === false || value === 0 || value === 1);
         },
-        email(value): boolean {
+        email(value: string): boolean {
             return !!Validator.regex.email.exec(value);
         },
-        enum(value, enumValues: Array<any>): boolean {
+        enum(value: any, enumValues: Array<any>): boolean {
             return enumValues.indexOf(value) >= 0 || enumValues.indexOf(+value) >= 0;
         },
         fileType(value: File, acceptedTypes: Array<string>): boolean {
@@ -84,13 +84,13 @@ export class Validator {
                 return isExtensionValid && acceptedTypes.indexOf(value.type) >= 0;
             }
         },
-        float(value): boolean {
+        float(value: any): boolean {
             return !isNaN(value);
         },
-        integer(value): boolean {
+        integer(value: any): boolean {
             return !isNaN(value);
         },
-        list(value, itemType: FieldType, field: Field, allValues: IModelValues): boolean {
+        list(value: any, itemType: FieldType, field: Field, allValues: IModelValues): boolean {
             // console.log(value, itemType);
             for (let i = 0, il = value.length; i < il; ++i) {
                 // console.log(value[i]);
@@ -101,28 +101,28 @@ export class Validator {
             }
             return true;
         },
-        max(value, max: number): boolean {
+        max(value: any, max: number): boolean {
             return !isNaN(value) && value != null && value <= max;
         },
-        maxLength(value, maxLength: number): boolean {
+        maxLength(value: any, maxLength: number): boolean {
             return typeof value === "string" && value.length <= maxLength;
         },
         maxSize(value: File, size: number): boolean {
             return "string" == typeof value || !!(value && value.size && value.size <= size * 1024);
         },
-        min(value, min: number): boolean {
+        min(value: any, min: number): boolean {
             return !isNaN(value) && value != null && value >= min;
         },
-        minLength(value, minLength: number): boolean {
+        minLength(value: any, minLength: number): boolean {
             return typeof value === "string" && value.length >= minLength;
         },
-        number(value): boolean {
+        number(value: any): boolean {
             return !isNaN(value);
         },
-        pattern(value, regex: RegExp): boolean {
+        pattern(value: any, regex: RegExp): boolean {
             return !!regex.exec(value);
         },
-        relation(value, relation: IRelation, field: Field): boolean {
+        relation(value: any, relation: IRelation, field: Field): boolean {
             // many2many
             if (relation.type == RelationType.Many2Many) {
                 for (let i = value.length; i--;) {
@@ -134,7 +134,7 @@ export class Validator {
                     if (valueType != "object") {
                         return false;
                     }
-                    const instance = new field.properties.relation.model(thisValue);
+                    const instance = new (field.properties.relation as IRelation).model(thisValue);
                     if (instance.validate(...Validator.getNotEmptyFields(instance.getValues()))) {
                         return false;
                     }
@@ -149,10 +149,10 @@ export class Validator {
                 if (valueType != "object") {
                     return false;
                 }
-                const instance = new field.properties.relation.model(value);
+                const instance = new (field.properties.relation as IRelation).model(value);
                 return instance.validate(...Validator.getNotEmptyFields(instance.getValues())) == null;
             }
-
+            return false;
         },
         required(value: any, isRequired: boolean, field?: Field): boolean {
             if (!isRequired) {
@@ -166,7 +166,7 @@ export class Validator {
                     case FieldType.List:
                         return value.length > 0;
                     case FieldType.Relation:
-                        if (field.properties.relation.type == RelationType.Many2Many) {
+                        if ((field.properties.relation as IRelation).type == RelationType.Many2Many) {
                             return value.length > 0;
                         }
                 }
@@ -174,17 +174,17 @@ export class Validator {
             return true;
         },
         // field types; second arg is undefined
-        string(value): boolean {
+        string(value: any): boolean {
             return "string" === typeof value;
         },
-        type(value, type: FieldType, field: Field, allValues: IModelValues): boolean {
+        type(value: any, type: FieldType, field: Field, allValues: IModelValues): boolean {
             switch (type) {
                 case FieldType.String:
                 case FieldType.Password:
                 case FieldType.Text:
                     return Validator.ruleValidator.string(value);
                 case FieldType.Enum:
-                    return Validator.ruleValidator.enum(value, field.properties.enum);
+                    return Validator.ruleValidator.enum(value, field.properties.enum as any[]);
                 case FieldType.EMail:
                     return Validator.ruleValidator.email(value);
                 case FieldType.URL:
@@ -206,13 +206,13 @@ export class Validator {
             }
             return true;
         },
-        tel(phoneNumber): boolean {
+        tel(phoneNumber: any): boolean {
             return !!Validator.regex.phone.exec(phoneNumber);
         },
-        timestamp(value): boolean {
+        timestamp(value: any): boolean {
             return !isNaN(value);
         },
-        unique(value, isUnique: boolean, field: Field): boolean {
+        unique(value: any, isUnique: boolean, field: Field): boolean {
             if (!isUnique) {
                 return true;
             }
@@ -228,7 +228,7 @@ export class Validator {
             }
             return true;
         },
-        url(url): boolean {
+        url(url: any): boolean {
             return !!Validator.regex.url.exec(url);
         },
     };
@@ -241,7 +241,7 @@ export class Validator {
      */
     public static validate(values: IModelValues, schema: Schema): IValidationError {
         const validationPatterns: IValidationModelSet = schema.validateSchema;
-        let errors: IValidationError = null;
+        let errors: IValidationError = null as any as IValidationError;
         // let valid = true;
         for (let fieldNames = Object.keys(validationPatterns), i = 0, il = fieldNames.length; i < il; ++i) {
             const fieldName = fieldNames[i];

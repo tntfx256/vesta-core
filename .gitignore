@@ -2,7 +2,5 @@
 .idea
 .vscode
 npm-debug.log
-/es5
-/es6
 /node_modules
 /vesta

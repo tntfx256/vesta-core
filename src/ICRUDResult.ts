@@ -1,5 +1,6 @@
-import { IQueryOption } from "./Database";
+import { IQueryOption } from './Database';
 
+// @deprecated
 export interface IQueryResult<T> {
     items?: Array<T>;
     limit?: number;
