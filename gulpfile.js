@@ -1,7 +1,7 @@
 // const Packager = require("./resources/Packager");
 // const Indexer = require("./resources/Indexer");
 const vesta = require("@vesta/devmaid");
-const base = "vesta";
+// const base = "vesta";
 
 // creating index file
 const indexer = new vesta.Indexer(`${__dirname}/src`);

@@ -21,11 +21,13 @@ export class Culture {
     }
 
     public static getDateTime(code?: string): IDateTime {
-        return Culture.cultures[code || Culture.defaultCode].dateTime;
+        const culture = Culture.cultures[code];
+        return culture ? culture.dateTime : Culture.cultures[Culture.defaultCode].dateTime;
     }
 
     public static getDateTimeInstance(code?: string): DateTime {
-        return new (Culture.cultures[code || Culture.defaultCode].dateTime)();
+        const dateTime = Culture.getDateTime(code);
+        return new dateTime();
     }
 
     public static getDictionary(code?: string): Dictionary {
@@ -33,7 +35,8 @@ export class Culture {
     }
 
     public static getLocale(code?: string): ILocale {
-        return Culture.cultures[code || Culture.defaultCode].locale;
+        const culture = Culture.cultures[code || Culture.defaultCode];
+        return culture ? culture.locale : Culture.cultures[Culture.defaultCode].locale;
     }
 
     public static register(locale: ILocale, vocabs: IVocabs, dateTime: IDateTime) {
