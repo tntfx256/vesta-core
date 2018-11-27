@@ -1,8 +1,8 @@
-import {Err} from "../Err";
+import { Err, IErrType } from "../Err";
 
 export class DatabaseError extends Err {
 
-    constructor(code: number, public dbError: Error) {
+    constructor(code: IErrType, public dbError: Error) {
         super(code, dbError && dbError.message);
     }
 }

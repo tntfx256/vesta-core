@@ -1,7 +1,7 @@
 import { Field, FieldType, IRelation, RelationType } from "./Field";
 import { Mime } from "./Mime";
 import { IModelValues } from "./Model";
-import { Platform } from "./Platform";
+import { isClient } from './Platform';
 import { Schema } from "./Schema";
 
 export type IAssertCallback = (value: any, field: Field, allValues: IModelValues) => boolean;
@@ -61,7 +61,7 @@ export class Validator {
         fileType(value: File, acceptedTypes: Array<string>): boolean {
             if ("string" == typeof value) { return true; }
             if (!value || !value.name) { return false; }
-            if (Platform.isClient()) {
+            if (isClient()) {
                 if (!(value instanceof File)) {
                     return false;
                 }

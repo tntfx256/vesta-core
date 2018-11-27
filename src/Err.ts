@@ -1,84 +1,55 @@
+export interface IErrType {
+    errno: number;
+    code: string;
+}
+
 export class Err implements Error {
-    public code: number;
+    public code: string;
+    public errno: number;
     public message: string;
     public name: string;
     public method: string;
     public file: string;
 
     public static Code = {
-        DBConnection: 560,
-        Database: 561,
-        DBDuplicateEntry: 562,
-        DBQuery: 563,
-        DBInsert: 564,
-        DBUpdate: 565,
-        DBDelete: 566,
-        DBInvalidDriver: 567,
+        DBConnection: { errno: 560, code: "err_db_conn" },
+        Database: { errno: 561, code: "err_db_op" },
+        DBDuplicateEntry: { errno: 562, code: "err_dup_entry" },
+        DBQuery: { errno: 563, code: "err_db_query" },
+        DBInsert: { errno: 564, code: "err_db_insert" },
+        DBUpdate: { errno: 565, code: "err_db_update" },
+        DBDelete: { errno: 566, code: "err_db_delete" },
+        DBInvalidDriver: { errno: 567, code: "err_db_driver" },
         /** When query is suppose to return one record, but returns more */
-        DBRecordCount: 568,
+        DBRecordCount: { errno: 568, code: "err_db_record_cnt" },
         /** When query is suppose to return some records, but returns none */
-        DBNoRecord: 569,
-        DBRelation: 570,
+        DBNoRecord: { errno: 569, code: "err_db_no_record" },
+        DBRelation: { errno: 570, code: "err_db_relation" },
         // acl
-        Unauthorized: 401,
-        Forbidden: 403,
-        Client: 400,
-        Server: 500,
-        Token: 571,
+        Unauthorized: { errno: 401, code: "err_unauthorized" },
+        Forbidden: { errno: 403, code: "err_forbidden" },
+        Client: { errno: 400, code: "err_bad_req" },
+        Server: { errno: 500, code: "err_server" },
+        Token: { errno: 571, code: "err_token" },
         // logical
-        WrongInput: 460,
-        OperationFailed: 582,
+        WrongInput: { errno: 460, code: "err_input" },
+        OperationFailed: { errno: 582, code: "err_op" },
         // form
-        Validation: 461,
+        Validation: { errno: 461, code: "err_validation" },
         //
-        FileSystem: 584,
-        Device: 462,
+        FileSystem: { errno: 584, code: "err_file" },
+        Device: { errno: 462, code: "err_device" },
         //
-        Implementation: 591,
-        NoDataConnection: 592,
-        Unknown: 599,
+        Implementation: { errno: 591, code: "err_method_impl" },
+        NoDataConnection: { errno: 592, code: "err_net_conn" },
+        Unknown: { errno: 599, code: "err_unknown" },
     };
 
-    public static Message = {
-        [Err.Code.DBConnection]: "err_db_conn",
-        [Err.Code.Database]: "err_db_op",
-        [Err.Code.DBDuplicateEntry]: "err_dup_entry",
-        [Err.Code.DBQuery]: "err_db_query",
-        [Err.Code.DBInsert]: "err_db_insert",
-        [Err.Code.DBUpdate]: "err_db_update",
-        [Err.Code.DBDelete]: "err_db_delete",
-        [Err.Code.DBInvalidDriver]: "err_db_driver",
-        [Err.Code.DBRecordCount]: "err_db_record_cnt",
-        [Err.Code.DBNoRecord]: "err_db_no_record",
-        [Err.Code.DBRelation]: "err_db_relation",
-        // acl
-        [Err.Code.Unauthorized]: "err_unauthorized",
-        [Err.Code.Forbidden]: "err_forbidden",
-        [Err.Code.Client]: "err_bad_req",
-        [Err.Code.Server]: "err_server",
-        [Err.Code.Token]: "err_token",
-        // logical
-        [Err.Code.WrongInput]: "err_input",
-        [Err.Code.OperationFailed]: "err_op",
-        // form
-        [Err.Code.Validation]: "err_validation",
-        //
-        [Err.Code.FileSystem]: "err_file",
-        [Err.Code.Device]: "err_device",
-        //
-        [Err.Code.Implementation]: "err_method_impl",
-        [Err.Code.NoDataConnection]: "err_net_conn",
-        [Err.Code.Unknown]: "err_unknown",
-    };
-
-    constructor(code: number = Err.Code.Unknown, message?: string, method?: string, file?: string) {
-        this.code = code;
-        this.message = message || Err.getErrorText(code);
+    constructor(type: IErrType = Err.Code.Unknown, message?: string, method?: string, file?: string) {
+        this.code = type.code;
+        this.errno = type.errno;
+        this.message = message || type.code;
         this.method = method || "";
         this.file = file || "";
-    }
-
-    public static getErrorText(code: number): string {
-        return Err.Message[code] || Err.Message[Err.Code.Unknown];
     }
 }

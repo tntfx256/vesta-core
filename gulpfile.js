@@ -1,3 +1,6 @@
+const {
+    existsSync
+} = require("fs");
 // const Packager = require("./resources/Packager");
 // const Indexer = require("./resources/Indexer");
 const vesta = require("@vesta/devmaid");
@@ -7,11 +10,16 @@ const vesta = require("@vesta/devmaid");
 const indexer = new vesta.Indexer(`${__dirname}/src`);
 indexer.generate();
 
+function tsCompile(key) {
+    let configFile = `tsconfig.${key}.json`;
+    isSecondary = existsSync(configFile);
+}
+
 // creating packages
 const pkgr = new vesta.Packager({
     root: __dirname,
     src: "src",
-    targets: ["es5", "es6"],
+    targets: ["es6", "es5"],
     files: [".npmignore", "LICENSE", "README.md"],
     transform: {
         package: function (package, target, isProduction) {

@@ -1,75 +1,31 @@
-export class Platform {
+export function isClient(): boolean {
+    return typeof window !== 'undefined';
+}
 
-    public static Type = {ServerSide: 'server', ClientSide: 'client'};
-    public static Platform = {Device: 'device', Browser: 'browser'};
-    public static OS = {Windows: 'windows', Linux: 'linux', Android: 'android', IOS: 'ios', BlackBerry: 'bb'};
+export function isServer(): boolean {
+    return typeof window === 'undefined';
+}
 
-    private static hasInfo: boolean;
-    private static isMobile: boolean;
-    private static type: string;
-    private static os: string;
-    private static platform: string;
+export function isBrowser(): boolean {
+    return !isDevice();
+}
 
-    private static getInfo() {
-        if (Platform.hasInfo) return;
-        Platform.type = typeof window === 'undefined' ? Platform.Type.ServerSide : Platform.Type.ClientSide;
-        if (Platform.type == Platform.Type.ClientSide) {
-            const userAgent = window.navigator.userAgent;
-            if (userAgent.match(/Android/i)) {
-                Platform.isMobile = true;
-                Platform.os = Platform.OS.Android;
-            } else if (userAgent.match(/BlackBerry/i)) {
-                Platform.isMobile = true;
-                Platform.os = Platform.OS.BlackBerry;
-            } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
-                Platform.isMobile = true;
-                Platform.os = Platform.OS.IOS;
-            } else if (userAgent.match(/Opera Mini/i)) {
-                Platform.isMobile = true;
-                //Platform.os = Platform.OS.IOS;
-            } else if (userAgent.match(/IEMobile/i)) {
-                Platform.isMobile = true;
-                //Platform.os = Platform.OS.IOS;
-            } else {
-                Platform.isMobile = false;
-            }
-            Platform.platform = Platform.isMobile ? Platform.Platform.Device : Platform.Platform.Browser;
+export function isDevice(): boolean {
+    if (isServer()) { return false; }
+    const userAgent = window.navigator.userAgent;
+    return isAndroid() && isIos() && userAgent.match(/BlackBerry/i) !== null &&
+        userAgent.match(/Opera Mini/i) !== null && userAgent.match(/IEMobile/i) !== null;
+}
 
-        }
-        Platform.hasInfo = true;
-    }
+export function isAndroid(): boolean {
+    return isClient() && window.navigator.userAgent.match(/Android/i) !== null;
+}
 
-    public static isClient(): boolean {
-        Platform.getInfo();
-        return Platform.type == 'client';
-    }
+export function isIos(): boolean {
+    if (!isClient()) { return false; }
+    return !!window.navigator.userAgent.match(/iPhone|iPad|iPod/i);
+}
 
-    public static isServer(): boolean {
-        Platform.getInfo();
-        return Platform.type == 'server';
-    }
-
-    public static isBrowser(): boolean {
-        Platform.getInfo();
-        return Platform.platform == Platform.Platform.Browser;
-    }
-
-    public static isDevice(): boolean {
-        Platform.getInfo();
-        return Platform.isMobile;
-    }
-
-    public static isAndroid(): boolean {
-        Platform.getInfo();
-        return Platform.os == Platform.OS.Android;
-    }
-
-    public static isIos(): boolean {
-        Platform.getInfo();
-        return Platform.os == Platform.OS.IOS;
-    }
-
-    public static isPWA(): boolean {
-        return Platform.Platform.Browser && window.navigator['standalone'];
-    }
+export function isPWA(): boolean {
+    return isBrowser() && window.navigator['standalone'];
 }

@@ -1,8 +1,8 @@
-import {Condition} from "./Condition";
-import {IDeleteResult, IQueryResult, IUpsertResult} from "./ICRUDResult";
-import {IModel} from "./Model";
-import {Schema} from "./Schema";
-import {Vql} from "./Vql";
+import { Condition } from "./Condition";
+import { IResponse } from './IResponse';
+import { IModel } from "./Model";
+import { Schema } from "./Schema";
+import { Vql } from "./Vql";
 
 /**
  * protocol     database protocol (Database.MySQL | Database.Redis | ...)
@@ -57,11 +57,11 @@ export interface ISchemaList {
 
 
 export interface IDatabase {
-    new (config: IDatabaseConfig, models: IModelCollection): Database;
+    new(config: IDatabaseConfig, models: IModelCollection): Database;
 }
 
 export interface IKeyValueDatabase {
-    new (config: IDatabaseConfig): KeyValueDatabase;
+    new(config: IDatabaseConfig): KeyValueDatabase;
 }
 
 /**
@@ -73,13 +73,13 @@ export interface KeyValueDatabase {
 
     close(connection: any): Promise<boolean>;
 
-    find<T>(key: string): Promise<IQueryResult<T | string>>;
+    find<T>(key: string): Promise<IResponse<T | string>>;
 
-    insert<T>(key: string, value: T): Promise<IUpsertResult<T>>;
+    insert<T>(key: string, value: T): Promise<IResponse<T>>;
 
-    update<T>(key: string, value: T): Promise<IUpsertResult<T>>;
+    update<T>(key: string, value: T): Promise<IResponse<T>>;
 
-    remove(key: string): Promise<IDeleteResult>;
+    remove<T>(key: string): Promise<IResponse<T>>;
 }
 
 /**
@@ -89,23 +89,23 @@ export interface Database {
 
     connect(): Promise<Database>;
 
-    find<T>(model: string, id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
+    find<T>(model: string, id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>;
 
-    find<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
+    find<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>;
 
-    find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>;
+    find<T>(query: Vql, transaction?: Transaction): Promise<IResponse<T>>;
 
-    insert<T>(model: string, value: T, transaction?: Transaction): Promise<IUpsertResult<T>>;
+    insert<T>(model: string, value: T, transaction?: Transaction): Promise<IResponse<T>>;
 
-    insert<T>(model: string, values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>>;
+    insert<T>(model: string, values: Array<T>, transaction?: Transaction): Promise<IResponse<T>>;
 
-    update<T>(model: string, value: T, transaction?: Transaction): Promise<IUpsertResult<T>>;
+    update<T>(model: string, value: T, transaction?: Transaction): Promise<IResponse<T>>;
 
-    update<T>(model: string, newValues: T, condition: Condition, transaction?: Transaction): Promise<IUpsertResult<T>>;
+    update<T>(model: string, newValues: T, condition: Condition, transaction?: Transaction): Promise<IResponse<T>>;
 
-    remove(model: string, id: number | string, transaction?: Transaction): Promise<IDeleteResult>;
+    remove<T>(model: string, id: number | string, transaction?: Transaction): Promise<IResponse<T>>;
 
-    remove(model: string, condition: Condition, transaction?: Transaction): Promise<IDeleteResult>;
+    remove<T>(model: string, condition: Condition, transaction?: Transaction): Promise<IResponse<T>>;
 
     init();
 
@@ -113,11 +113,11 @@ export interface Database {
 
     close(connection: any): Promise<boolean>;
 
-    count<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>;
+    count<T>(model: string, modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>;
 
-    count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>;
+    count<T>(query: Vql, transaction?: Transaction): Promise<IResponse<T>>;
 
-    increase<T>(model: string, id: number | string, field: string, value: number, transaction?: Transaction): Promise<IUpsertResult<T>>;
+    increase<T>(model: string, id: number | string, field: string, value: number, transaction?: Transaction): Promise<IResponse<T>>;
 }
 
 

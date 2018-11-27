@@ -1,6 +1,6 @@
-import {IValidationModelSet, IValidationModel} from "./Validator";
-import {Field, IFieldProperties} from "./Field";
-import {IModelFields} from "./Model";
+import { Field, IFieldProperties } from "./Field";
+import { IModelFields } from "./Model";
+import { IValidationModel, IValidationModelSet } from "./Validator";
 
 export class Schema {
     private _validateSchema;

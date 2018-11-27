@@ -1,10 +1,10 @@
-import {Field} from "./Field";
-import {Schema} from "./Schema";
-import {Database, IQueryOption, Transaction} from "./Database";
-import {Vql} from "./Vql";
-import {Condition} from "./Condition";
-import {IValidationError, Validator} from "./Validator";
-import {IDeleteResult, IQueryResult, IUpsertResult} from "./ICRUDResult";
+import { Condition } from "./Condition";
+import { Database, IQueryOption, Transaction } from "./Database";
+import { Field } from "./Field";
+import { IResponse } from './IResponse';
+import { Schema } from "./Schema";
+import { IValidationError, Validator } from "./Validator";
+import { Vql } from "./Vql";
 
 export interface IModelFields {
     [fieldName: string]: Field
@@ -15,7 +15,7 @@ export interface IModelValues {
 }
 
 export interface IModel {
-    new (values?: any): Model;
+    new(values?: any): Model;
     schema: Schema;
     database: Database;
 }
@@ -77,25 +77,25 @@ export abstract class Model {
         return this.getValues<T>();
     }
 
-    public insert<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>> {
+    public insert<T>(values?: T, transaction?: Transaction): Promise<IResponse<T>> {
         if (values) {
             this.setValues(values);
         }
         return (this.database).insert(this.schema.name, this.getValues(), transaction);
     }
 
-    public update<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>> {
+    public update<T>(values?: T, transaction?: Transaction): Promise<IResponse<T>> {
         let modelValues = <T>this.getValues();
         values = values || modelValues;
         values[this.schema.pk] = modelValues[this.schema.pk];
         return (this.database).update(this.schema.name, values, transaction);
     }
 
-    public remove(transaction?: Transaction): Promise<IDeleteResult> {
+    public remove<T>(transaction?: Transaction): Promise<IResponse<T>> {
         return (this.database).remove(this.schema.name, this[this.schema.pk], transaction);
     }
 
-    public increase<T>(field: string, value: number = 1, transaction?: Transaction): Promise<IUpsertResult<T>> {
+    public increase<T>(field: string, value: number = 1, transaction?: Transaction): Promise<IResponse<T>> {
         return (this.database).increase(this.schema.name, this[this.schema.pk], field, value, transaction);
     }
 
@@ -103,10 +103,10 @@ export abstract class Model {
         return this.database;
     }
 
-    public static find<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static find<T>(id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static find<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IQueryResult<T>> {
+    public static find<T>(query: Vql, transaction?: Transaction): Promise<IResponse<T>>
+    public static find<T>(id: number | string, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>
+    public static find<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>
+    public static find<T>(arg1: number | string | T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IResponse<T>> {
         if (arg1 instanceof Vql) {
             return (this.database).find<T>(<Vql>arg1, transaction);
         } else {
@@ -115,9 +115,9 @@ export abstract class Model {
 
     }
 
-    public static update<T>(value: T, transaction?: Transaction): Promise<IUpsertResult<T>>
-    public static update<T>(newValues: T, condition: Condition, transaction?: Transaction): Promise<IUpsertResult<T>>
-    public static update<T>(value: T, arg2: Condition | Transaction, transaction?: Transaction): Promise<IUpsertResult<T>> {
+    public static update<T>(value: T, transaction?: Transaction): Promise<IResponse<T>>
+    public static update<T>(newValues: T, condition: Condition, transaction?: Transaction): Promise<IResponse<T>>
+    public static update<T>(value: T, arg2: Condition | Transaction, transaction?: Transaction): Promise<IResponse<T>> {
         if (arg2 instanceof Condition) {
             return this.database.update(this.schema.name, value, <Condition>arg2, transaction)
         } else {
@@ -125,15 +125,15 @@ export abstract class Model {
         }
     }
 
-    public static insert<T>(values?: T, transaction?: Transaction): Promise<IUpsertResult<T>>
-    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>>
-    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IUpsertResult<T>> {
+    public static insert<T>(values?: T, transaction?: Transaction): Promise<IResponse<T>>
+    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IResponse<T>>
+    public static insert<T>(values: Array<T>, transaction?: Transaction): Promise<IResponse<T>> {
         return (this.database).insert(this.schema.name, <any>values, transaction);
     }
 
-    public static remove(id: number | string, transaction?: Transaction): Promise<IDeleteResult>
-    public static remove(condition: Condition, transaction?: Transaction): Promise<IDeleteResult>
-    public static remove(arg1: Condition | number | string, transaction?: Transaction): Promise<IDeleteResult> {
+    public static remove<T>(id: number | string, transaction?: Transaction): Promise<IResponse<T>>
+    public static remove<T>(condition: Condition, transaction?: Transaction): Promise<IResponse<T>>
+    public static remove<T>(arg1: Condition | number | string, transaction?: Transaction): Promise<IResponse<T>> {
         return (this.database).remove(this.schema.name, <any>arg1, transaction);
 
     }
@@ -142,9 +142,9 @@ export abstract class Model {
         return (this.database).query(query, null, transaction);
     }
 
-    public static count<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static count<T>(query: Vql, transaction?: Transaction): Promise<IQueryResult<T>>
-    public static count<T>(arg1?: T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IQueryResult<T>> {
+    public static count<T>(modelValues: T, option?: IQueryOption, transaction?: Transaction): Promise<IResponse<T>>
+    public static count<T>(query: Vql, transaction?: Transaction): Promise<IResponse<T>>
+    public static count<T>(arg1?: T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IResponse<T>> {
         if (arg1 instanceof Vql) {
             return this.database.count(arg1, <Transaction>arg2);
         }

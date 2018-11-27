@@ -1,5 +1,3 @@
-import { Err } from "./Err";
-
 export function sanitizePhoneNumber(phoneNumber: string, countryCode?: number): string {
     let sanitizedNumber = unicodeDigit(phoneNumber);
     if (countryCode) {

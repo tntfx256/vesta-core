@@ -6,18 +6,25 @@ interface IDispatcherRegistry<T> {
 
 export class Dispatcher {
 
-    public static getInstance(name: string = "main"): Dispatcher {
-        if (!Dispatcher.instances[name]) {
-            Dispatcher.instances[name] = new Dispatcher(name);
+    public static getInstance(): Dispatcher {
+        if (!Dispatcher.instance) {
+            Dispatcher.instance = new Dispatcher();
         }
-        return Dispatcher.instances[name];
+        return Dispatcher.instance;
     }
 
-    private static instances: Array<Dispatcher> = [];
+    private static instance: Dispatcher;
     private registry: IDispatcherRegistry<any> = {};
 
-    constructor(name: string) {
-        Dispatcher.instances[name] = this;
+    private constructor() { }
+
+    public dispatch = <T>(eventName: string, payload: T) => {
+        if (!this.registry[eventName]) {
+            return;
+        }
+        for (let i = 0, il = this.registry[eventName].length; i < il; ++i) {
+            this.registry[eventName][i](payload);
+        }
     }
 
     public register<T>(eventName: string, callback: IDispatcherCallBack<T>) {
@@ -38,14 +45,5 @@ export class Dispatcher {
             }
         }
         return true;
-    }
-
-    public dispatch = <T>(eventName: string, payload: T) => {
-        if (!this.registry[eventName]) {
-            return;
-        }
-        for (let i = 0, il = this.registry[eventName].length; i < il; ++i) {
-            this.registry[eventName][i](payload);
-        }
     }
 }
