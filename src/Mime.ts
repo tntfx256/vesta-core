@@ -5,7 +5,7 @@ export interface IMimeItem {
 
 export class Mime {
 
-    public static addMime(ext: string, mime) {
+    public static addMime(ext: string, mime: string) {
         Mime.types.push({ ext, mime });
     }
 

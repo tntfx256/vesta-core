@@ -3,7 +3,7 @@ export interface IErrType {
     code: string;
 }
 
-export class Err implements Error {
+export class Err implements Error, IErrType {
     public code: string;
     public errno: number;
     public message: string;
@@ -51,5 +51,6 @@ export class Err implements Error {
         this.message = message || type.code;
         this.method = method || "";
         this.file = file || "";
+        this.name = "";
     }
 }
