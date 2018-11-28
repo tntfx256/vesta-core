@@ -133,7 +133,7 @@ export class Vql implements IQueryOption {
             vql = arg1 as Vql;
             type = arg2;
         }
-        this.joins.push({ field, vql, type: type ? type : Vql.LeftJoin });
+        this.joins.push({ field, vql, type: (type ? type : Vql.LeftJoin) as number });
         return this;
     }
     private sortByList(orderBy: IOrderBy): Vql {

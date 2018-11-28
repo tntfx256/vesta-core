@@ -21,7 +21,7 @@ export class Culture {
     }
 
     public static getDateTime(code?: string): IDateTime {
-        const culture = Culture.cultures[code];
+        const culture = Culture.cultures[code || Culture.defaultCode];
         return culture ? culture.dateTime : Culture.cultures[Culture.defaultCode].dateTime;
     }
 
@@ -31,7 +31,8 @@ export class Culture {
     }
 
     public static getDictionary(code?: string): Dictionary {
-        return Culture.cultures[code || Culture.defaultCode].dictionary;
+        const culture = Culture.cultures[code || Culture.defaultCode];
+        return culture ? culture.dictionary : Culture.cultures[Culture.defaultCode].dictionary;
     }
 
     public static getLocale(code?: string): ILocale {

@@ -1,41 +1,26 @@
-const { existsSync } = require("fs");
-// const Packager = require("./resources/Packager");
-// const Indexer = require("./resources/Indexer");
-const vesta = require("@vesta/devmaid");
-// const base = "vesta";
+const { Indexer, Packager } = require("@vesta/devmaid");
 
 // creating index file
-const indexer = new vesta.Indexer(`${__dirname}/src`);
+const indexer = new Indexer(`${__dirname}/src`);
 indexer.generate();
 
-function tsCompile(key) {
-    let configFile = `tsconfig.${key}.json`;
-    isSecondary = existsSync(configFile);
-}
-
 // creating packages
-const pkgr = new vesta.Packager({
+const pkgr = new Packager({
     root: __dirname,
     src: "src",
     targets: ["es6", "es5"],
     files: [".npmignore", "LICENSE", "README.md"],
     transform: {
         package: function(package, target, isProduction) {
-            if (target == "es5") {
-                package.name = `${package.name}-es5`;
-                package.dependencies['es6-promise'] = '^4.1.0';
-                package.devDependencies['@types/es6-promise'] = '^0.0.32';
-            }
             if (isProduction) {
                 delete package.private;
             }
+            return false;
         },
         tsconfig: function(tsconfig, target, isProduction) {
-            // tsconfig.compilerOptions.module = "es2015";
-            // tsconfig.include = ["../../src/**/*"];
-            // tsconfig.exclude = [`../../${base}/**/*`];
+            tsconfig.target = target;
         }
     }
 });
 
-pkgr.createTasks();
+module.exports = pkgr.createTasks();

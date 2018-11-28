@@ -1,7 +1,7 @@
 export interface IComparison {
-    field: string;
-    value: any
-    isValueOfTypeField: boolean;
+    field?: string;
+    value?: any
+    isValueOfTypeField?: boolean;
 }
 
 /**
@@ -29,11 +29,11 @@ export class Condition {
         Regex: 19,
         NotRegex: 20
     };
-    public comparison: IComparison;
+    public comparison: IComparison = {};
     public children: Array<Condition> = [];
     public isConnector: boolean = false;
     public operator: number;
-    public model: string;
+    public model: string = "";
 
     constructor(operator: number, model: string = '') {
         this.operator = operator;
@@ -47,7 +47,7 @@ export class Condition {
      */
     public compare(field: string, value: any, isValueOfTypeField: boolean = false): Condition {
         if (this.isConnector) return this;
-        this.comparison = {field: field, value: value, isValueOfTypeField: isValueOfTypeField};
+        this.comparison = { field: field, value: value, isValueOfTypeField: isValueOfTypeField };
         return this;
     }
 

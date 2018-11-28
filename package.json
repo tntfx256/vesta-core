@@ -8,8 +8,8 @@
   "repository": "https://github.com/VestaRayanAfzar/vesta-core.git",
   "scripts": {
     "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
+    "start": "gulp",
     "dev[es5]": "gulp dev[es5]",
-    "dev[es6]": "gulp dev[es6]",
     "deploy": "gulp publish"
   },
   "author": "hbtb <bishehsary@gmail.com>",
@@ -26,6 +26,8 @@
   "devDependencies": {
     "@types/jasmine": "^3.3.0",
     "@types/node": "^10.12.10",
+    "@vesta/devmaid": "^0.4.1",
+    "gulp": "^4.0.0",
     "jasmine-core": "^3.3.0",
     "jasmine-node": "^1.16.2",
     "mkdirp": "^0.5.1",

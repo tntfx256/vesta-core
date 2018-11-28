@@ -107,7 +107,7 @@ export interface Database {
 
     remove<T>(model: string, condition: Condition, transaction?: Transaction): Promise<IResponse<T>>;
 
-    init();
+    init(): void;
 
     query<T>(query: string, data?: Array<number | string | Array<number | string>>, transaction?: Transaction): Promise<T>;
 

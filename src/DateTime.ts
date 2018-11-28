@@ -6,7 +6,7 @@ export interface IDateTime {
 
 export abstract class DateTime {
     public locale: ILocale;
-    protected char2param = {
+    protected char2param: any = {
         D: "Day",
         H: "Hours",
         M: "Month",
@@ -31,31 +31,31 @@ export abstract class DateTime {
         return parsed;
     }
 
-    public abstract getDate();
+    public abstract getDate(): number;
 
-    public abstract getDay();
+    public abstract getDay(): number;
 
-    public abstract getFullYear();
+    public abstract getFullYear(): number;
 
-    public abstract getHours();
+    public abstract getHours(): number;
 
     public abstract getMinutes(): number;
 
-    public abstract getMonth();
+    public abstract getMonth(): number;
 
     public abstract getSeconds(): number;
 
     public abstract getTime(): number;
 
-    public abstract setDate(d: number);
+    public abstract setDate(d: number): number;
 
-    public abstract setFullYear(year: number, month?: number, date?: number);
+    public abstract setFullYear(year: number, month?: number, date?: number): number;
 
     public abstract setHours(hour: number, minute?: number, second?: number): number;
 
     public abstract setMinutes(minute: number, second?: number): number;
 
-    public abstract setMonth(month: number, date?: number);
+    public abstract setMonth(month: number, date?: number): number;
 
     public abstract setSeconds(second: number): number;
 
@@ -92,11 +92,11 @@ export abstract class DateTime {
 
     public abstract valueOf(): number;
 
-    protected addZero(param) {
+    protected addZero(param: number) {
         return (param < 10 ? "0" : "") + param;
     }
 
-    protected getEqParam(char) {
+    protected getEqParam(char: string) {
         let param = char;
         if (this.char2param[char]) {
             const getter = `get${this.char2param[char]}`;
