@@ -18,7 +18,7 @@ const pkgr = new Packager({
             return false;
         },
         tsconfig: function(tsconfig, target, isProduction) {
-            tsconfig.target = target;
+            tsconfig.compilerOptions.target = target;
         }
     }
 });
