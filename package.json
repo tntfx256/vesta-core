@@ -1,6 +1,6 @@
 {
   "name": "@vesta/core",
-  "version": "2.0.1",
+  "version": "2.0.4",
   "description": "Vesta platform core library",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -9,7 +9,6 @@
   "scripts": {
     "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
     "start": "gulp",
-    "dev[es5]": "gulp dev[es5]",
     "deploy": "gulp publish"
   },
   "author": "hbtb <bishehsary@gmail.com>",

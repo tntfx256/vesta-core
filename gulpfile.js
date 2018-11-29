@@ -8,7 +8,7 @@ indexer.generate();
 const pkgr = new Packager({
     root: __dirname,
     src: "src",
-    targets: ["es6", "es5"],
+    targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
     transform: {
         package: function(package, target, isProduction) {
@@ -16,9 +16,6 @@ const pkgr = new Packager({
                 delete package.private;
             }
             return false;
-        },
-        tsconfig: function(tsconfig, target, isProduction) {
-            tsconfig.compilerOptions.target = target;
         }
     }
 });

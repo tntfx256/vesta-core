@@ -10,7 +10,7 @@ export class Mime {
     }
 
     public static getMime(extension: string): Array<string> {
-        const types = [];
+        const types: string[] = [];
         if (extension.charAt(0) == ".") {
             extension = extension.substr(1);
         }

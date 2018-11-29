@@ -6,7 +6,10 @@
         "outDir": "./build",
         "strict": true,
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "strictPropertyInitialization": false,
+        "noImplicitAny": false,
+        "declaration": true
     },
     "include": [
         "src/**/*.ts"

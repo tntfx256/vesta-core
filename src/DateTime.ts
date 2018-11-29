@@ -98,6 +98,7 @@ export abstract class DateTime {
 
     protected getEqParam(char: string) {
         let param = char;
+        let numeric = -1;
         if (this.char2param[char]) {
             const getter = `get${this.char2param[char]}`;
             param = this[getter]();
@@ -112,15 +113,14 @@ export abstract class DateTime {
                     param = this.locale.monthNamesShort[param];
                     break;
                 case "h":
-                    param = param % 12;
+                    numeric = +param % 12;
                     break;
                 case "m":
                     // show month number [0-11] => [1-12]
-                    ++param;
-
+                    numeric = +param + 1;
             }
             if (this.leadingZeros.indexOf(char) >= 0) {
-                param = this.addZero(param);
+                param = this.addZero(numeric > -1 ? numeric : +param);
             }
         }
         return param;

@@ -31,9 +31,9 @@ export abstract class Model {
         this.database = database;
     }
 
-    public validate(...fieldNames: Array<string>): IValidationError {
+    public validate(...fieldNames: Array<string>): IValidationError | null {
         let result = Validator.validate(this.getValues(...fieldNames), this.schema);
-        if (!result) return null;
+        if (!result) { return null; }
         if (fieldNames.length) {
             let hasError = false;
             let subset: IValidationError = {};
@@ -147,9 +147,8 @@ export abstract class Model {
     public static count<T>(arg1?: T | Vql, arg2?: IQueryOption | Transaction, transaction?: Transaction): Promise<IResponse<T>> {
         if (arg1 instanceof Vql) {
             return this.database.count(arg1, <Transaction>arg2);
-        }
-        else {
-            return this.database.count(this.schema.name, arg1, <IQueryOption>arg2, transaction);
+        } else {
+            return this.database.count(this.schema.name, arg1, arg2 as IQueryOption, transaction);
         }
     }
 

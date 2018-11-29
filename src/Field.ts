@@ -174,7 +174,7 @@ export class Field {
     }
 
     public isWeek(): Field {
-        this._properties.relation.isWeek = true;
+        (this._properties.relation as IRelation).isWeek = true;
         return this
     }
 }

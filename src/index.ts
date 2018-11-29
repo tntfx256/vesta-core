@@ -12,7 +12,7 @@ export {IRequest} from "./IRequest";
 export {IResponse} from "./IResponse";
 export {IMimeItem, Mime} from "./Mime";
 export {IModelFields, IModelValues, IModel, Model} from "./Model";
-export {isClient, isServer, isBrowser, isDevice, isAndroid, isIos, isPWA} from "./Platform";
+export {OperatingSystem, isClient, isServer, isBrowser, isAndroid, isIOS, isDevice, isPWA, isCordova} from "./Platform";
 export {Registry} from "./Registry";
 export {sanitizePhoneNumber, unicodeDigit} from "./Sanitizor";
 export {Schema} from "./Schema";

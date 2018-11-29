@@ -109,7 +109,7 @@ export interface Database {
 
     init(): void;
 
-    query<T>(query: string, data?: Array<number | string | Array<number | string>>, transaction?: Transaction): Promise<T>;
+    query<T>(query: string, data?: null | Array<number | string | Array<number | string>>, transaction?: Transaction): Promise<T>;
 
     close(connection: any): Promise<boolean>;
 

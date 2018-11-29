@@ -1,6 +1,6 @@
 export interface IErrType {
-    errno: number;
-    code: string;
+    errno?: number;
+    code?: string;
 }
 
 export class Err implements Error, IErrType {
@@ -26,6 +26,7 @@ export class Err implements Error, IErrType {
         DBNoRecord: { errno: 569, code: "err_db_no_record" },
         DBRelation: { errno: 570, code: "err_db_relation" },
         // acl
+        NotFound: { errno: 404, code: "err_not_found" },
         Unauthorized: { errno: 401, code: "err_unauthorized" },
         Forbidden: { errno: 403, code: "err_forbidden" },
         Client: { errno: 400, code: "err_bad_req" },
@@ -46,9 +47,9 @@ export class Err implements Error, IErrType {
     };
 
     constructor(type: IErrType = Err.Code.Unknown, message?: string, method?: string, file?: string) {
-        this.code = type.code;
-        this.errno = type.errno;
-        this.message = message || type.code;
+        this.code = type.code || Err.Code.Unknown.code;
+        this.errno = type.errno || Err.Code.Unknown.errno;
+        this.message = message || this.code;
         this.method = method || "";
         this.file = file || "";
         this.name = "";

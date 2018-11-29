@@ -315,7 +315,7 @@ export class Validator {
     }
 
     private static getNotEmptyFields(model: IModelValues) {
-        const fields = [];
+        const fields: string[] = [];
         for (let i = 0, keys = Object.keys(model), il = keys.length; i < il; i++) {
             if (model[keys[i]] instanceof Array && !model[keys[i]].length) {
                 continue;
