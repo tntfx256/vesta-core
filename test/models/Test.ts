@@ -1,7 +1,8 @@
-import {IModelValues, Model} from "../../src/Model";
-import {Schema} from "../../src/Schema";
-import {Database} from "../../src/Database";
-import {FieldType} from "../../src/Field";
+import { Database } from "../../src/Database";
+import { FieldType } from "../../src/Field";
+import { Model } from "../../src/Model";
+import { Schema } from "../../src/Schema";
+
 
 export interface ITest {
     id?: number;

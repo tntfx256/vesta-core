@@ -56,7 +56,7 @@ export class Validator {
             return !!Validator.regex.email.exec(value);
         },
         enum(value: any, enumValues: Array<any>): boolean {
-            return enumValues.indexOf(value) >= 0 || enumValues.indexOf(+value) >= 0;
+            return enumValues.indexOf(value) >= 0;
         },
         fileType(value: File, acceptedTypes: Array<string>): boolean {
             if ("string" == typeof value) { return true; }
@@ -266,6 +266,12 @@ export class Validator {
      * Returns the name of the rule that has failed
      */
     public static validateField(field: Field, validationRules: IValidationModel, allValues: IModelValues): string {
+        if (!field) {
+            field = {} as Field;
+        }
+        if (!validationRules) {
+            return "";
+        }
         const value = allValues[field.fieldName];
         // checking required rule
         if (!Validator.ruleValidator.required(value, validationRules.required, field)) {

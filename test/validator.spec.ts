@@ -1,12 +1,12 @@
-import {Validator} from "../src/Validator";
-import {Field} from "../src/Field";
-import {ITest, Test} from "./models/Test";
+import { Validator } from "../src/Validator";
+import { Field } from "../src/Field";
+import { ITest, Test } from "./models/Test";
 
 describe("Testing Validator.ruleValidator", function () {
 
     it("required", function () {
-        let validValues = ['test', false, {}, []],
-            invalidValues = [null, '', undefined];
+        let validValues = ["test", false, {}, []],
+            invalidValues = [null, "", undefined];
 
         validValues.forEach(value => expect(Validator.ruleValidator.required(value, true)).toBe(true));
         validValues.forEach(value => expect(Validator.ruleValidator.required(value, false)).toBe(true));
@@ -15,24 +15,24 @@ describe("Testing Validator.ruleValidator", function () {
     });
 
     it("minLength", function () {
-        let validValues = ['abcd', 'abcdef'],
-            invalidValues = [null, undefined, '', 'ab'];
+        let validValues = ["abcd", "abcdef"],
+            invalidValues = [null, undefined, "", "ab"];
 
         validValues.forEach(value => expect(Validator.ruleValidator.minLength(value, 4)).toBe(true));
         invalidValues.forEach(value => expect(Validator.ruleValidator.minLength(value, 4)).toBe(false));
     });
 
     it("maxLength", function () {
-        let validValues = ['', 'ab', 'abcd'],
-            invalidValues = [null, undefined, 'abcdef'];
+        let validValues = ["", "ab", "abcd"],
+            invalidValues = [null, undefined, "abcdef"];
 
         validValues.forEach(value => expect(Validator.ruleValidator.maxLength(value, 4)).toBe(true));
         invalidValues.forEach(value => expect(Validator.ruleValidator.maxLength(value, 4)).toBe(false));
     });
 
     it("pattern", function () {
-        expect(Validator.ruleValidator.pattern('abCdef', /^[a-z]+$/i)).toBe(true);
-        expect(Validator.ruleValidator.pattern('abC34def', /^[a-z]+$/)).toBe(false);
+        expect(Validator.ruleValidator.pattern("abCdef", /^[a-z]+$/i)).toBe(true);
+        expect(Validator.ruleValidator.pattern("abC34def", /^[a-z]+$/)).toBe(false);
     });
 
     it("min", function () {
@@ -52,40 +52,28 @@ describe("Testing Validator.ruleValidator", function () {
     });
 
     it("asset", function () {
-        let allValues = {a: 1, b: 2};
+        let allValues = { a: 1, b: 2 };
 
-        expect(Validator.ruleValidator.assert(2, (value, field, allValues) => value == allValues['a'], <Field>{}, allValues)).toBe(false);
-        expect(Validator.ruleValidator.assert(2, (value, field, allValues) => value == allValues['b'], <Field>{}, allValues)).toBe(true);
+        expect(Validator.ruleValidator.assert(2, (value, field, allValues) => value == allValues["a"], <Field>{}, allValues)).toBe(false);
+        expect(Validator.ruleValidator.assert(2, (value, field, allValues) => value == allValues["b"], <Field>{}, allValues)).toBe(true);
     });
 
     it("maxSize", function () {
-        let validValues = [<File>{size: 1024 * 1024}],
-            invalidValues = [null, undefined, <File>{size: 1025 * 1024}];
+        let validValues = [<File>{ size: 1024 * 1024 }],
+            invalidValues = [null, undefined, <File>{ size: 1025 * 1024 }];
 
         validValues.forEach(value => expect(Validator.ruleValidator.maxSize(value, 1024)).toBe(true));
         invalidValues.forEach(value => expect(Validator.ruleValidator.maxSize(value, 1024)).toBe(false));
     });
 
     it("fileType", function () {
-        let validValues = [
-                <File>{name: 'test.jpg.pdf'},
-                <File>{name: 'test.jpg.pdf', type: 'application/pdf'},
-                <File>{name: 'test.pdf', type: 'application/octet-stream'}
-            ],
-            invalidValues = [null, undefined,
-                <File>{name: 'test.pdf', type: 'application/pdf'},
-                <File>{name: 'test', type: 'application/octet-stream'},
-                <File>{name: 'test.txt'}
-            ];
 
-        validValues.forEach(value => expect(Validator.ruleValidator.fileType(value, ['application/pdf'])).toBe(true));
-        invalidValues.forEach(value => expect(Validator.ruleValidator.fileType(value, ['image/jpg'])).toBe(false));
     });
 
     it("enum", function () {
-        enum TestEnum {First, Second = 2, Third}
-        let invalidValues = [null, undefined, 'test', -3],
-            validValues = [null, undefined, 0, TestEnum.First];
+        enum TestEnum { First, Second = 2, Third }
+        const invalidValues = [null, undefined, "test", -3];
+        const validValues = [null, undefined, 0, TestEnum.First];
 
         validValues.forEach(value => expect(Validator.ruleValidator.enum(value, [null, undefined, 0, TestEnum.First])).toBe(true));
         invalidValues.forEach(value => expect(Validator.ruleValidator.enum(value, [0, 1, 2, 3, 4])).toBe(false));
@@ -93,24 +81,24 @@ describe("Testing Validator.ruleValidator", function () {
     });
 
     it("email", function () {
-        let validEmails = ['a@b.co', 'a-b@c-d.co'],
-            invalidEmails = ['ash', 'ab@sdf', 'asd$@tex.com'];
+        let validEmails = ["a@b.co", "a-b@c-d.co"],
+            invalidEmails = ["ash", "ab@sdf", "asd$@tex.com"];
 
         validEmails.forEach(value => expect(Validator.ruleValidator.email(value)).toBe(true));
         invalidEmails.forEach(value => expect(Validator.ruleValidator.email(value)).toBe(false));
     });
 
     it("url", function () {
-        let validNumbers = ['http://142.42.1.1', 'http://foo.com/blah_blah'],
-            invalidNumbers = ['http://-a.b.co', 'http://foo.bar?q=Something&foo=bar'];
+        let validNumbers = ["http://142.42.1.1", "http://foo.com/blah_blah"],
+            invalidNumbers = ["http://-a.b.co", "http://foo.bar?q=Something&foo=bar"];
 
         validNumbers.forEach(value => expect(Validator.ruleValidator.url(value)).toBe(true));
         invalidNumbers.forEach(value => expect(Validator.ruleValidator.url(value)).toBe(false));
     });
 
     it("number, integer, float", function () {
-        let validNumbers = [2, 25, -35, 0, '0', '-33', Infinity, .33],
-            invalidNumbers = [NaN, 'test', '4tr'];
+        let validNumbers = [2, 25, -35, 0, "0", "-33", Infinity, .33],
+            invalidNumbers = [NaN, "test", "4tr"];
 
         validNumbers.forEach(value => expect(Validator.ruleValidator.number(value)).toBe(true));
         invalidNumbers.forEach(value => expect(Validator.ruleValidator.number(value)).toBe(false));
@@ -123,8 +111,8 @@ describe("Testing Validator.ruleValidator", function () {
     });
 
     it("tel", function () {
-        let validNumbers = [9111234567, '+9812345678', '0098 911-123-4567', '0098 (912) 123-4567'],
-            invalidNumbers = [NaN, '98 (912) 123_4567', '1234567'];
+        let validNumbers = [9111234567, "+9812345678", "0098 911-123-4567", "0098 (912) 123-4567"],
+            invalidNumbers = [NaN, "98 (912) 123_4567", "1234567"];
 
         validNumbers.forEach(value => expect(Validator.ruleValidator.tel(value)).toBe(true));
         invalidNumbers.forEach(value => expect(Validator.ruleValidator.tel(value)).toBe(false));
@@ -132,45 +120,44 @@ describe("Testing Validator.ruleValidator", function () {
 
     it("boolean", function () {
         let validValues = [true, false],
-            invalidValues = [NaN, '', 2, null, undefined];
+            invalidValues = [NaN, "", 2, null, undefined];
 
         validValues.forEach(value => expect(Validator.ruleValidator.boolean(value)).toBe(true));
         invalidValues.forEach(value => expect(Validator.ruleValidator.boolean(value)).toBe(false));
     });
 
-    it('list', function () {
+    it("list", function () {
 
     });
 
 });
 
-describe('Testing Validator.validateField', function () {
-    it('Validating list', function () {
+describe("Testing Validator.validateField", function () {
+    it("Validating list", function () {
         let test = new Test();
         let validationSchema = Test.schema.validateSchema;
         let values = test.getValues<ITest>();
-        expect(Validator.validateField(Test.schema.getField('emails'), validationSchema['emails'], values)).toBe('required');
-        expect(Validator.validateField(Test.schema.getField('permissions'), validationSchema['permissions'], values)).toBe('required');
-        test.emails.push('invalid@email');
-        test.emails.push('valid@email.com');
+        expect(Validator.validateField(Test.schema.getField("emails"), validationSchema["emails"], values)).toBe("required");
+        test.emails.push("invalid@email");
+        test.emails.push("valid@email.com");
         validationSchema = Test.schema.validateSchema;
         values = test.getValues<ITest>();
-        expect(Validator.validateField(Test.schema.getField('emails'), validationSchema['emails'], values)).toBe('type');
+        expect(Validator.validateField(Test.schema.getField("emails"), validationSchema["emails"], values)).toBe("type");
     });
 });
 
-describe('Testing Validator.validate', function () {
-    it('Validating model', function () {
+describe("Testing Validator.validate", function () {
+    it("Validating model", function () {
 
     });
 });
 
-describe('Testing relation', function () {
-    it('Validating one2many relations', function () {
+describe("Testing relation", function () {
+    it("Validating one2many relations", function () {
 
     });
 
-    it('Validating many2many relations', function () {
+    it("Validating many2many relations", function () {
 
     });
 

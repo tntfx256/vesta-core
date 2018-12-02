@@ -1,14 +1,14 @@
 {
   "name": "@vesta/core",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Vesta platform core library",
   "license": "Apache-2.0",
   "main": "index.js",
   "typings": "index.d.ts",
-  "repository": "https://github.com/VestaRayanAfzar/vesta-core.git",
+  "repository": "https://github.com/vesta-boot/vesta-core.git",
   "scripts": {
-    "test": "node node_modules/jasmine-node/bin/jasmine-node build/test --autotest --watch package/ --color --verbose",
     "start": "gulp",
+    "test": "gulp test",
     "deploy": "gulp publish"
   },
   "author": "hbtb <bishehsary@gmail.com>",
@@ -16,19 +16,18 @@
     "javadkh2 <khalilian.javad@gmail.com>"
   ],
   "bugs": {
-    "url": "https://github.com/VestaRayanAfzar/vesta-core/issues",
+    "url": "https://github.com/vesta-boot/vesta-core/issues",
     "email": "bishehsary@gmail.com"
   },
   "dependencies": {
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@types/jasmine": "^3.3.0",
+    "@types/jest": "^23.3.10",
     "@types/node": "^10.12.10",
     "@vesta/devmaid": "^0.4.1",
     "gulp": "^4.0.0",
-    "jasmine-core": "^3.3.0",
-    "jasmine-node": "^2.0.1",
+    "jest": "^23.6.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",

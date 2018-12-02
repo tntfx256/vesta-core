@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["esnext", "dom"],
+        "outDir": "./test/__test__",
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "strictPropertyInitialization": false,
+        "noImplicitAny": false
+    },
+    "include": [
+        "test/**/*.ts"
+    ]
+}
