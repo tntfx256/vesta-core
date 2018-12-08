@@ -1,11 +1,11 @@
 {
   "name": "@vesta/core",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Vesta platform core library",
   "license": "Apache-2.0",
   "main": "index.js",
   "typings": "index.d.ts",
-  "repository": "https://github.com/vesta-boot/vesta-core.git",
+  "repository": "https://github.com/vestaBoot/vesta-core.git",
   "scripts": {
     "start": "gulp",
     "test": "gulp test",
@@ -16,7 +16,7 @@
     "javadkh2 <khalilian.javad@gmail.com>"
   ],
   "bugs": {
-    "url": "https://github.com/vesta-boot/vesta-core/issues",
+    "url": "https://github.com/vestaBoot/vesta-core/issues",
     "email": "bishehsary@gmail.com"
   },
   "dependencies": {
