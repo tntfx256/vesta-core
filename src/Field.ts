@@ -1,7 +1,7 @@
 import { IModel } from "./Model";
 import { IAssertCallback } from "./Validator";
 
-export const enum RelationType { One2Many = 1, Many2Many, Reverse }
+export enum RelationType { One2Many = 1, Many2Many, Reverse }
 
 /**
  *
@@ -17,7 +17,7 @@ export interface IRelation {
     isWeek?: boolean;
 }
 
-export const enum FieldType { String = 1, Text, Password, Tel, EMail, URL, Number, Integer, Float, File, Timestamp, Boolean, Object, Enum, Relation, List }
+export enum FieldType { String = 1, Text, Password, Tel, EMail, URL, Number, Integer, Float, File, Timestamp, Boolean, Object, Enum, Relation, List }
 
 export interface IFieldProperties {
     type: FieldType;
