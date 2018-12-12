@@ -1,6 +1,6 @@
 {
   "name": "@vesta/core",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Vesta platform core library",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -20,6 +20,7 @@
     "email": "bishehsary@gmail.com"
   },
   "dependencies": {
+    "@vesta/locale": "^0.1.0",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

@@ -1,6 +1,5 @@
-import { DateTime, IDateTime } from "./DateTime";
+import { DateTime, IDateTime, ILocale } from "@vesta/locale";
 import { Dictionary, IVocabs } from "./Dictionary";
-import { ILocale } from "./ILocale";
 
 export interface ICulture {
     dateTime: IDateTime;

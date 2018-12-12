@@ -1,13 +1,11 @@
 export {IComparison, Condition} from "./Condition";
 export {ICulture, ICultureCollection, Culture} from "./Culture";
 export {IDatabaseConfig, IOrderBy, IQueryOption, IModelCollection, ISchemaList, IDatabase, IKeyValueDatabase, KeyValueDatabase, Database, Transaction} from "./Database";
-export {IDateTime, DateTime} from "./DateTime";
 export {IVocabs, Dictionary} from "./Dictionary";
 export {IDispatcherCallBack, Dispatcher} from "./Dispatcher";
 export {IErrType, Err} from "./Err";
 export {RelationType, IRelation, FieldType, IFieldProperties, Field} from "./Field";
 export {Hlc} from "./Hlc";
-export {ILocale} from "./ILocale";
 export {IRequest} from "./IRequest";
 export {IResponse} from "./IResponse";
 export {IMimeItem, Mime} from "./Mime";
