@@ -3,18 +3,17 @@
         "target": "es6",
         "module": "commonjs",
         "lib": ["esnext", "dom"],
-        "outDir": "./build",
-        "strict": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "strictPropertyInitialization": false,
         "noImplicitAny": false,
-        "declaration": true
+        "declaration": true,
+        "moduleResolution": "node"
     },
     "include": [
         "src/**/*.ts"
     ],
     "exclude": [
-        "build"
+        "test"
     ]
 }

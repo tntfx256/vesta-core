@@ -13,11 +13,12 @@ const pkgr = new Packager({
     targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
     transform: {
-        package: function(package, target, isProduction) {
-            if (isProduction) {
-                delete package.private;
-            }
+        package: (json, target) => {
+            delete json.private;
             return false;
+        },
+        tsconfig: function(tsconfig, target, isProduction) {
+            tsconfig.compilerOptions.target = target;
         }
     }
 });
