@@ -6,6 +6,14 @@ import { Schema } from "./Schema";
 
 export type IAssertCallback = (value: any, field: Field, allValues: IModelValues) => boolean;
 
+export interface IModelValidationMessage {
+    [fieldName: string]: { [ruleName: string]: string };
+}
+
+export interface IFieldValidationMessage {
+    [fieldName: string]: string;
+}
+
 export interface IValidationModel {
     [ruleName: string]: any;
 }
