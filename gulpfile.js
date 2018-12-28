@@ -1,25 +1,21 @@
-const { Indexer, Packager } = require("@vesta/devmaid");
+const { genIndex, Packager } = require("@vesta/devmaid");
 const { watch } = require("gulp");
-const {execSync} = require("child_process");
+const { execSync } = require("child_process");
 
 // creating index file
-const indexer = new Indexer(`${__dirname}/src`);
-indexer.generate();
+genIndex(`${__dirname}/src`);
 
 // creating packages
 const pkgr = new Packager({
     root: __dirname,
     src: "src",
-    targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
     transform: {
-        package: (json, target) => {
+        package: (json) => {
             delete json.private;
             return false;
         },
-        tsconfig: function(tsconfig, target, isProduction) {
-            tsconfig.compilerOptions.target = target;
-        }
+        tsconfig: function(tsconfig, isProduction) {}
     }
 });
 
@@ -42,7 +38,7 @@ function test() {
             // console.error(error);
             exec("npx jest test", `${__dirname}/test`)
         })
-        .then((error)=>{
+        .then((error) => {
             // console.error(error);
         })
 
