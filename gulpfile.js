@@ -1,27 +1,39 @@
+const gulp = require("gulp");
 const { genIndex, Packager } = require("@vesta/devmaid");
-const { watch } = require("gulp");
 const { execSync } = require("child_process");
 
-// creating index file
-genIndex(`${__dirname}/src`);
-
-// creating packages
-const pkgr = new Packager({
+let pkgr = new Packager({
     root: __dirname,
     src: "src",
+    targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
+    publish: "--access=public",
     transform: {
-        package: (json) => {
+        package: (json, target) => {
             delete json.private;
             return false;
         },
-        tsconfig: function(tsconfig, isProduction) {}
+        tsconfig: function(tsconfig, target, isProduction) {
+            // tsconfig.compilerOptions.target = target;
+        }
     }
 });
 
+function indexer() {
+    genIndex("src");
+    return Promise.resolve();
+}
+
+function watch() {
+    gulp.watch(["src/**/*", "!src/**/index.ts"], indexer);
+    return Promise.resolve();
+}
+
+const tasks = pkgr.createTasks();
 module.exports = {
-    ...pkgr.createTasks(),
-    test: test
+    default: gulp.series(indexer, tasks.default, watch),
+    publish: gulp.series(indexer, tasks.deploy, tasks.publish),
+    test: test,
 }
 
 // test section
@@ -30,7 +42,7 @@ let isWatching = false;
 function test() {
     if (!isWatching) {
         isWatching = true;
-        watch(["test/**/*.ts", "src/**/*.ts"], test);
+        gulp.watch(["test/**/*.ts", "src/**/*.ts"], test);
     }
 
     return exec(`npx tsc --project ${__dirname}/tsconfig.test.json`, `${__dirname}/test`)

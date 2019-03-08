@@ -23,8 +23,8 @@ export class Registry {
     }
 
     public static get<T>(key: string, defaultValue?: T): T | null {
-        if (key in Registry.privateStorage) {
-            return Registry.privateStorage[key];
+        if (key in Registry.storage) {
+            return Registry.storage[key];
         }
         return defaultValue || null;
     }

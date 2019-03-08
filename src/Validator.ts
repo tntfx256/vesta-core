@@ -64,7 +64,13 @@ export class Validator {
             return !!Validator.regex.email.exec(value);
         },
         enum(value: any, enumValues: Array<any>): boolean {
-            return enumValues.indexOf(value) >= 0;
+            for (let i = 0, il = enumValues.length; i < il; ++i) {
+                if (enumValues[i] == value) {
+                    return true;
+                }
+            }
+            // return enumValues.indexOf(value) >= 0;
+            return false;
         },
         fileType(value: File, acceptedTypes: Array<string>): boolean {
             if ("string" == typeof value) { return true; }
