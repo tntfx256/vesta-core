@@ -119,7 +119,7 @@ export class Validator {
             return !isNaN(value) && value != null && value <= max;
         },
         maxLength(value: any, maxLength: number): boolean {
-            return typeof value === "string" && value.length <= maxLength;
+            return typeof value === "string" ? value.length <= maxLength : true;
         },
         maxSize(value: File, size: number): boolean {
             return "string" == typeof value || !!(value && value.size && value.size <= size * 1024);
@@ -128,7 +128,7 @@ export class Validator {
             return !isNaN(value) && value != null && value >= min;
         },
         minLength(value: any, minLength: number): boolean {
-            return typeof value === "string" && value.length >= minLength;
+            return typeof value === "string" ? value.length >= minLength : true;
         },
         number(value: any): boolean {
             return !isNaN(value);

@@ -1,6 +1,6 @@
 {
   "name": "@vesta/core",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Vesta platform core library",
   "license": "Apache-2.0",
   "main": "index.js",
@@ -24,7 +24,7 @@
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
     "@vesta/devmaid": "^0.4.9",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "jest": "^23.6.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.3",
